@@ -23,11 +23,9 @@ public class SpaceDoor : MonoBehaviour
             if(!hasBeenOpened)
             {
                 GridManager.Instance.GenerateNewRoom(newRoomX, newRoomY);
-            }
-            else
-            {
                 hasBeenOpened = true;
-            }   
+            }
+           
             //in the future, this would trigger some animation
             image.enabled = false;
             

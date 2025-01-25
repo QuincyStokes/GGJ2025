@@ -265,6 +265,22 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 1729830806}
+    - target: {fileID: 7161787669063917192, guid: e34f934500db2f349b43b705e9ca9150, type: 3}
+      propertyPath: boxOne
+      value: 
+      objectReference: {fileID: 7751401076723288783, guid: 055196ed721b9d54180b5a2da463c2e0, type: 3}
+    - target: {fileID: 7161787669063917192, guid: e34f934500db2f349b43b705e9ca9150, type: 3}
+      propertyPath: obstacles.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7161787669063917192, guid: e34f934500db2f349b43b705e9ca9150, type: 3}
+      propertyPath: obstacles.Array.data[0]
+      value: 
+      objectReference: {fileID: 7751401076723288783, guid: 055196ed721b9d54180b5a2da463c2e0, type: 3}
+    - target: {fileID: 7161787669063917192, guid: e34f934500db2f349b43b705e9ca9150, type: 3}
+      propertyPath: obstacleSpawnChancePerTile
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7454842203950546401, guid: e34f934500db2f349b43b705e9ca9150, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Linq;
 using Cinemachine;
-using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
@@ -18,6 +17,7 @@ public class GridManager : MonoBehaviour
     public int maxRoomsX;
     public int maxRoomsY;
     private bool isCameraMoving;
+    
 
 
 
@@ -35,11 +35,14 @@ public class GridManager : MonoBehaviour
     public Tile[] shipGroundTiles;
 
     [Header("Specific Tiles")]
-    public Tile portalTile;
     public Tile OUTERTile;
 
     [Header("Game Objects")]
     public GameObject door;
+
+    [Header("Obstacle Spawning")]
+    public float obstacleSpawnChancePerTile;
+    public GameObject[] obstacles;
 
     [Header("Camera Settings")]
     public float cameraMoveDuration;
@@ -87,51 +90,13 @@ public class GridManager : MonoBehaviour
 
     }   
 
-    
 
-    void GenerateStartRoom()
+    public void GenerateNewRoom(int roomX, int roomY)
     {
-        for(int i = 0 ; i < roomSizeX; i++)
-        {
-            for(int j = 0; j < roomSizeY; j++)
-            {
-                //place background tiles as a grid
-                
-                //if we're on a border, place a wall tile on the wall tilemap
-                // if(i < 0 || i > roomSizeX-1 || j < 0 || j > roomSizeY-1)
-                // {
-                //     PlaceTile(i, j, OUTERTile, backgroundTM);
-                // }
-                if(i == 0 || i == roomSizeX-1 || j == 0 || j == roomSizeY-1)
-                {
-                    PlaceTile(i, j, spaceWallTiles[Random.Range(0, spaceWallTiles.Count())], obstacleTM);
-                }
-                else
-                {
-                    PlaceTile(i, j, spaceGroundTiles[Random.Range(0, spaceGroundTiles.Count())], backgroundTM);
-                }
-            }
-        }
-        //can generate 4 doors in this room, always
+        int startPosX = roomX*roomSizeX;
+        int startPosY = roomY*roomSizeY;
 
-        //loop 4 times to create 4 doors
-        //door locations would be 
-        //0, y/2
-        //x/2, 0
-        //x, y/2
-        //x/2, y
-        
-        // PlaceDoor(0, roomSizeY/2);
-        // PlaceDoor(roomSizeX/2, 0);
-        // PlaceDoor(roomSizeX, roomSizeY/2);
-        // PlaceDoor(roomSizeX/2, roomSizeY);
-        // //rooms[0,0] = 1;
-    }
-
-    public void GenerateNewRoom(int roomx, int roomy)
-    {
-        int startPosX = roomx*roomSizeX;
-        int startPosY = roomy*roomSizeY;
+        //place wall and background tiles
         for(int i = startPosX ; i < startPosX+roomSizeX; i++)
         {
             for(int j = startPosY; j < startPosY+roomSizeY; j++)
@@ -145,16 +110,30 @@ public class GridManager : MonoBehaviour
                 }
                 else
                 {
+                    //place background (floor) tiles
                     PlaceTile(i, j, spaceGroundTiles[Random.Range(0, spaceGroundTiles.Count())], backgroundTM);
+
+                    //here is a good place to spawn in random gameobjects since we have the position stored
+                    //this just checks if we are away from the walls
+                    if(i > startPosX+2 && i < startPosX+roomSizeX-3 && j > startPosY+2 && j < startPosY+roomSizeY-3)
+                    {
+                        if(Random.Range(0, 100) < obstacleSpawnChancePerTile)
+                        {
+                            Instantiate(obstacles[Random.Range(0, obstacles.Count())], new Vector3(i, j, -1), Quaternion.identity);
+                        }
+                    }
+                    
                 }
             }
         }
-        if(roomx != 0 )
+
+        //placing doors
+        if(roomX > 0 )
         {
-            if(rooms[roomx-1,roomy] == 0) // LEFT
+            if(rooms[roomX-1,roomY] == 0) // LEFT
             {
-                Debug.Log($"placing LEFT door with NEXT room xy: {roomx-1}, {roomy}, and OLD room xy {roomx}, {roomy}");
-                PlaceDoor(startPosX, startPosY +roomSizeY/2, roomx-1, roomy, roomx, roomy);
+                Debug.Log($"placing LEFT door with NEXT room xy: {roomX-1}, {roomY}, and OLD room xy {roomX}, {roomY}");
+                PlaceDoor(startPosX, startPosY +roomSizeY/2, roomX-1, roomY, roomX, roomY);
             }
             else
             {
@@ -164,12 +143,12 @@ public class GridManager : MonoBehaviour
                 KillTile(startPosX-1, startPosY+roomSizeY/2-1, obstacleTM);
             }
         }
-        if(roomx != 10) //RIGHT
+        if(roomX < maxRoomsX-1) //RIGHT
         {
-            if(rooms[roomx+1, roomy] == 0) 
+            if(rooms[roomX+1, roomY] == 0) 
             {
-                Debug.Log($"placing RIGHT door with NEXT room xy: {roomx+1}, {roomy}, and OLD room xy {roomx}, {roomy}");
-                PlaceDoor(startPosX + roomSizeX, startPosY +roomSizeY/2, roomx+1, roomy, roomx, roomy);
+                Debug.Log($"placing RIGHT door with NEXT room xy: {roomX+1}, {roomY}, and OLD room xy {roomX}, {roomY}");
+                PlaceDoor(startPosX + roomSizeX, startPosY +roomSizeY/2, roomX+1, roomY, roomX, roomY);
             }
             else
             {
@@ -179,12 +158,12 @@ public class GridManager : MonoBehaviour
                 KillTile(startPosX+roomSizeX, startPosY+roomSizeY/2-1, obstacleTM);
             }
         }
-        if(roomy != 0 ) //DOWN
+        if(roomY > 0 ) //DOWN
         {
-            if(rooms[roomx, roomy-1] == 0)
+            if(rooms[roomX, roomY-1] == 0)
             {
-                Debug.Log($"placing DOWN door with NEXT room xy: {roomx}, {roomy-1}, and OLD room xy {roomx}, {roomy}");
-                PlaceDoor(startPosX +roomSizeX/2, startPosY, roomx, roomy-1, roomx, roomy);
+                Debug.Log($"placing DOWN door with NEXT room xy: {roomX}, {roomY-1}, and OLD room xy {roomX}, {roomY}");
+                PlaceDoor(startPosX +roomSizeX/2, startPosY, roomX, roomY-1, roomX, roomY);
             }
             else
             {
@@ -194,12 +173,12 @@ public class GridManager : MonoBehaviour
                 KillTile(startPosX+roomSizeX/2-1, startPosY-1, obstacleTM);
             }
         }
-        if(roomy != 10)//UP
+        if(roomY < maxRoomsY-1)//UP
         {
-            if(rooms[roomx, roomy+1] == 0 ) 
+            if(rooms[roomX, roomY+1] == 0 ) 
             {
-                Debug.Log($"placing UP door with NEXT room xy: {roomx}, {roomy+1}, and OLD room xy {roomx}, {roomy}");
-                PlaceDoor(startPosX +roomSizeX/2, startPosY +roomSizeY, roomx, roomy+1, roomx, roomy);
+                Debug.Log($"placing UP door with NEXT room xy: {roomX}, {roomY+1}, and OLD room xy {roomX}, {roomY}");
+                PlaceDoor(startPosX +roomSizeX/2, startPosY +roomSizeY, roomX, roomY+1, roomX, roomY);
             }  
             else
             {
@@ -209,8 +188,10 @@ public class GridManager : MonoBehaviour
                 KillTile(startPosX+roomSizeX/2-1, startPosY-1 +roomSizeY, obstacleTM);
             }
         }
-        rooms[roomx, roomy] = 1;
+        rooms[roomX, roomY] = 1;
         
+        
+
     }
     public void PlaceDoor(int x, int y, int nextRoomX, int nextRoomY, int oldRoomX, int oldRoomY)
     {
