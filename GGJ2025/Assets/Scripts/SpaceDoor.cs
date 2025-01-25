@@ -24,6 +24,7 @@ public class SpaceDoor : MonoBehaviour
             {
                 GridManager.Instance.GenerateNewRoom(newRoomX, newRoomY);
                 hasBeenOpened = true;
+                DialogueManager.Instance.StartDialogue("Wow, a new room! So exciting!", "Dog");
             }
            
             //in the future, this would trigger some animation

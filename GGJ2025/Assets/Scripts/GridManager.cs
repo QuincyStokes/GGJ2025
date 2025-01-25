@@ -68,7 +68,7 @@ public class GridManager : MonoBehaviour
     }
 
     
-    void Start()
+    void Awake()
     {
         if(Instance == null)
         {
@@ -78,6 +78,11 @@ public class GridManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    void Start()
+    {
+        
 
         if(cam == null)
         {
