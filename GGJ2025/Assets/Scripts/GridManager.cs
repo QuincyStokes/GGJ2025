@@ -1,4 +1,7 @@
+using System.Collections;
 using System.Linq;
+using Cinemachine;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
@@ -14,6 +17,7 @@ public class GridManager : MonoBehaviour
     public int outerTileThickness;
     public int maxRoomsX;
     public int maxRoomsY;
+    private bool isCameraMoving;
 
 
 
@@ -37,6 +41,13 @@ public class GridManager : MonoBehaviour
     [Header("Game Objects")]
     public GameObject door;
 
+    [Header("Camera Settings")]
+    public float cameraMoveDuration;
+    [HideInInspector]public CinemachineVirtualCamera cam;
+    
+    [HideInInspector]public int currentCamX;
+    [HideInInspector]public int currentCamY;
+
 
     private int[,] rooms;
 
@@ -48,9 +59,7 @@ public class GridManager : MonoBehaviour
             for(int j = 0; j < maxRoomsY; j++)
             {
                 rooms[i, j] = 0;
-                print(rooms[i,j]);
             }
-            print("\n");
         }
 
     }
@@ -66,12 +75,16 @@ public class GridManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if(cam == null)
+        {
+            cam = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
+        }
         InitializeRoomsArray();
-        //GenerateStartRoom();
+        MoveCameraPos(0, 0);
         GenerateNewRoom(0, 0);
-        //GenerateNewRoom(0,1);
-        //GenerateNewRoom(1,1);
-        //GenerateNewRoom(2,0);
+        DontDestroyOnLoad(this.gameObject);
+
     }   
 
     
@@ -119,7 +132,6 @@ public class GridManager : MonoBehaviour
     {
         int startPosX = roomx*roomSizeX;
         int startPosY = roomy*roomSizeY;
-        print("Creating new room at " + roomx + " " + roomy);
         for(int i = startPosX ; i < startPosX+roomSizeX; i++)
         {
             for(int j = startPosY; j < startPosY+roomSizeY; j++)
@@ -141,7 +153,8 @@ public class GridManager : MonoBehaviour
         {
             if(rooms[roomx-1,roomy] == 0) // LEFT
             {
-                PlaceDoor(startPosX, startPosY +roomSizeY/2, roomx-1, roomy);
+                Debug.Log($"placing LEFT door with NEXT room xy: {roomx-1}, {roomy}, and OLD room xy {roomx}, {roomy}");
+                PlaceDoor(startPosX, startPosY +roomSizeY/2, roomx-1, roomy, roomx, roomy);
             }
             else
             {
@@ -155,7 +168,8 @@ public class GridManager : MonoBehaviour
         {
             if(rooms[roomx+1, roomy] == 0) 
             {
-                PlaceDoor(startPosX + roomSizeX, startPosY +roomSizeY/2, roomx+1, roomy);
+                Debug.Log($"placing RIGHT door with NEXT room xy: {roomx+1}, {roomy}, and OLD room xy {roomx}, {roomy}");
+                PlaceDoor(startPosX + roomSizeX, startPosY +roomSizeY/2, roomx+1, roomy, roomx, roomy);
             }
             else
             {
@@ -169,7 +183,8 @@ public class GridManager : MonoBehaviour
         {
             if(rooms[roomx, roomy-1] == 0)
             {
-                PlaceDoor(startPosX +roomSizeX/2, startPosY, roomx, roomy-1);
+                Debug.Log($"placing DOWN door with NEXT room xy: {roomx}, {roomy-1}, and OLD room xy {roomx}, {roomy}");
+                PlaceDoor(startPosX +roomSizeX/2, startPosY, roomx, roomy-1, roomx, roomy);
             }
             else
             {
@@ -183,24 +198,28 @@ public class GridManager : MonoBehaviour
         {
             if(rooms[roomx, roomy+1] == 0 ) 
             {
-                PlaceDoor(startPosX +roomSizeX/2, startPosY +roomSizeY, roomx, roomy+1);
+                Debug.Log($"placing UP door with NEXT room xy: {roomx}, {roomy+1}, and OLD room xy {roomx}, {roomy}");
+                PlaceDoor(startPosX +roomSizeX/2, startPosY +roomSizeY, roomx, roomy+1, roomx, roomy);
             }  
             else
             {
                 KillTile(startPosX+roomSizeX/2, startPosY +roomSizeY, obstacleTM);
                 KillTile(startPosX+roomSizeX/2-1, startPosY +roomSizeY, obstacleTM);
-                 KillTile(startPosX+roomSizeX/2, startPosY-1 +roomSizeY, obstacleTM);
+                KillTile(startPosX+roomSizeX/2, startPosY-1 +roomSizeY, obstacleTM);
                 KillTile(startPosX+roomSizeX/2-1, startPosY-1 +roomSizeY, obstacleTM);
             }
         }
         rooms[roomx, roomy] = 1;
         
     }
-    public void PlaceDoor(int x, int y, int nextRoomX, int nextRoomY)
+    public void PlaceDoor(int x, int y, int nextRoomX, int nextRoomY, int oldRoomX, int oldRoomY)
     {
         GameObject newDoor = Instantiate(door, new Vector3(x, y, 0), Quaternion.identity);
-        newDoor.GetComponent<SpaceDoor>().x = nextRoomX;
-        newDoor.GetComponent<SpaceDoor>().y = nextRoomY;
+        SpaceDoor sd = newDoor.GetComponent<SpaceDoor>();
+        sd.newRoomX = nextRoomX;
+        sd.newRoomY = nextRoomY;
+        sd.oldRoomX = oldRoomX;
+        sd.oldRoomY = oldRoomY;
         KillTile(x, y, obstacleTM);
         KillTile(x-1, y, obstacleTM);
         KillTile(x, y-1, obstacleTM);
@@ -222,6 +241,43 @@ public class GridManager : MonoBehaviour
     public void PlaceGameObject(int x, int y, GameObject go)
     {
         Instantiate(go, new Vector3(x+.5f, y+.5f, 0), Quaternion.identity);
+    }
+
+
+    //MoveCameraPos sets the position of a camera to a Room X and Y
+    public void MoveCameraPos(int x, int y)
+    {
+        print("moving camera position to " + x + ", " +  y);
+        currentCamX = x;
+        currentCamY = y;
+        StartCoroutine(MoveCameraSmooth(x, y));
+        cam.transform.position = new Vector3(x*roomSizeX + roomSizeX/2, y*roomSizeY + roomSizeY/2, -10);
+    }
+
+    private IEnumerator MoveCameraSmooth(int x, int y)
+    {
+        isCameraMoving = true;
+        Vector3 startPos = cam.transform.position;
+        Vector3 endPos = new Vector3(x*roomSizeX + roomSizeX/2, y*roomSizeY + roomSizeY/2, -10);
+
+        float elapsedTime = 0f;
+        while(elapsedTime < cameraMoveDuration)
+        {
+            elapsedTime += Time.deltaTime;
+
+            //t is the percentage of the way to the new location, goes from 0-1
+            float t = Mathf.Clamp01(elapsedTime / cameraMoveDuration); 
+
+            //apply the position change using Lerp, makes it smooooth
+            cam.transform.position = Vector3.Lerp(startPos, endPos, t);
+            
+            //this basically tells the loop to wait to continue until the next frame
+            yield return null;
+        }
+
+        cam.transform.position = endPos;
+        isCameraMoving = false;
+
     }
 
 

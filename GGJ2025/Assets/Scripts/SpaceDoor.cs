@@ -8,9 +8,12 @@ public class SpaceDoor : MonoBehaviour
 
     [Header("Image Component")]
     public SpriteRenderer image;
-    [HideInInspector]public int x;
-    [HideInInspector]public int y;
-    private bool hasBeenOpened;
+    [HideInInspector]public int newRoomX; //x of the room that this door created
+    [HideInInspector]public int newRoomY; //y of the room that this door created
+
+    [HideInInspector]public int oldRoomX; //x of the room that was already there
+    [HideInInspector]public int oldRoomY; //y of the room that aas already there
+    private bool hasBeenOpened = false;
     
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -19,10 +22,26 @@ public class SpaceDoor : MonoBehaviour
             //create new room
             if(!hasBeenOpened)
             {
-                GridManager.Instance.GenerateNewRoom(x, y);
+                GridManager.Instance.GenerateNewRoom(newRoomX, newRoomY);
             }
+            else
+            {
+                hasBeenOpened = true;
+            }   
             //in the future, this would trigger some animation
             image.enabled = false;
+            
+            //need to move the camera to the appropriate position
+            //if our current room is not the new room, then we must be moving to it..?
+            //                      0 !=  1  &&   0 !=  0
+            if(GridManager.Instance.currentCamX != newRoomX || GridManager.Instance.currentCamY != newRoomY)
+            {
+                GridManager.Instance.MoveCameraPos(newRoomX, newRoomY);
+            }
+            else
+            {
+                GridManager.Instance.MoveCameraPos(oldRoomX, oldRoomY);
+            }
 
         }
     }
