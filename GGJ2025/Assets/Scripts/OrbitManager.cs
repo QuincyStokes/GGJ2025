@@ -20,6 +20,9 @@ public class OrbitManager : MonoBehaviour
     public TMP_Text orbitTimeText;
     
 
+    private bool paused;
+    
+
     //private tings
     [HideInInspector] public int currentOrbitDay;
     private float currentOrbitTime;
@@ -43,8 +46,12 @@ public class OrbitManager : MonoBehaviour
 
     void Update()
     {
-        ProgressOrbit();
-        UpdateTimeUI();
+        if(!paused)
+        {
+            ProgressOrbit();
+            UpdateTimeUI();
+        }
+        
     }
 
   
@@ -74,6 +81,16 @@ public class OrbitManager : MonoBehaviour
             //"debug" text
             orbitDayText.text = "Current Orbit Day: " + currentOrbitDay.ToString();
             orbitTimeText.text = "Current Orbit Time: " +currentOrbitTime.ToString();
+        }
+
+        public void PauseOrbit()
+        {
+            paused = true;
+        }
+
+        public void ResumeOrbit()
+        {
+            paused = false;
         }
     
 
