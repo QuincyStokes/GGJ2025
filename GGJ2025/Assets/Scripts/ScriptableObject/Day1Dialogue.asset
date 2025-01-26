@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Day1Dialogue
   m_EditorClassIdentifier: 
   speakerIcon: {fileID: 21300000, guid: 9e487282435378f4981bfef5809aae11, type: 3}
-  speakerIconOther: {fileID: 21300000, guid: a086923e97e622b4dbe78e7db10e97fc, type: 3}
+  speakerIconOther: {fileID: 21300000, guid: f0719cce95a556a4c889cff60d348708, type: 3}
   laikaDialogue:
   - "\u201COh wow, you\u2019re briiiight! Are you my new friend?\u201D"
   - "\u201CExplorer? Oh, no-no, I\u2019m just\u2026 floating, I guess. Do you think

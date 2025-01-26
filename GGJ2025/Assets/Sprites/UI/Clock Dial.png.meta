@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1ec21e9e647f77a459c237d0e14a0bd5
+guid: b2c6fa6f3d6b9cf48b780e69f17ee9f8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,22 +110,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sun_0
+      name: Clock Dial_0
       rect:
         serializedVersion: 2
-        x: 380
-        y: 116
-        width: 90
-        height: 94
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 422
+        y: 158
+        width: 22
+        height: 24
+      alignment: 3
+      pivot: {x: 1, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b088a65b3fd71af44bdf534460673541
-      internalID: 541336350
+      spriteID: 11d2896cd10631b4a8647ea97077c827
+      internalID: -2063080891
       vertices: []
       indices: 
       edges: []
@@ -141,7 +141,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Sun_0: 541336350
+      Clock Dial_0: -2063080891
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

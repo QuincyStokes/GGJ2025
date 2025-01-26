@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1ec21e9e647f77a459c237d0e14a0bd5
+guid: f80e77ea4e616d346b6781798cfffb92
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sun_0
+      name: Day box_0
       rect:
         serializedVersion: 2
-        x: 380
-        y: 116
-        width: 90
-        height: 94
+        x: 388
+        y: 88
+        width: 72
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b088a65b3fd71af44bdf534460673541
-      internalID: 541336350
+      spriteID: 4930fa675f15d004ebe6bd6c364f1012
+      internalID: -682562236
       vertices: []
       indices: 
       edges: []
@@ -141,7 +141,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Sun_0: 541336350
+      Day box_0: -682562236
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
