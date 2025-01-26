@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class EnemySpawnManager : MonoBehaviour
 {
+    //
+    [SerializeField] int maxNumberOfSpawns = 5;
+    [SerializeField] int maxNumberOfUniqueSpawns = 3;
+    [SerializeField] int minNumberOfSpawns = 1;
+
+    
 
     //This is not complete at all
     public List<Enemy> enemyList;
+    public Dictionary<int,int> spawnedEnemies;            // using a Dictionary to keep track of how many of each enemy are present Key = Enemy, Value = How many of them are alive
 
+    //@@@@@@@@@@ TO DO: Update the dictionary whenever an enemy DIES. Currently, combat hasn't been implemented yet. Code will NOT work once units die.
 
     // Start is called before the first frame update
     void Start()
@@ -28,5 +36,36 @@ public class EnemySpawnManager : MonoBehaviour
         
     }
 
+    void SpawnEnemies()
+    {
+        int numberOfEnemiesToSpawn = Random.Range(minNumberOfSpawns, maxNumberOfUniqueSpawns);
+        int numberOfEnemyTypes = enemyList.Count;
+
+        while (spawnedEnemies.Count <= numberOfEnemiesToSpawn)              // assuming player has to clear the room of enemies
+        {
+            int EnemyToSpawn = Random.Range(1, numberOfEnemyTypes);         //randomly chooses an enemy type to spawn
+
+            if (spawnedEnemies.ContainsKey(EnemyToSpawn))                   //Checks if our dict already has records of this enemy being spawned
+            {
+                if (spawnedEnemies[EnemyToSpawn] == maxNumberOfUniqueSpawns) //If we have the max number of unique spawns already, skip spawning that one and reroll.
+                    continue;                                                //Otherwise, spawn an enemy.
+                else
+                {
+                    Instantiate(enemyList[EnemyToSpawn]);
+                    spawnedEnemies[EnemyToSpawn] += 1;                      // Adds to our count of enemies that have spawned
+                }
+            }
+
+            else
+            {
+                Instantiate(enemyList[EnemyToSpawn]);            //Adds the Key/Value pair to our dictionary after instantiating the enemy object.
+                spawnedEnemies.Add(EnemyToSpawn, 1);
+            }
+            
+
+            Instantiate(enemyList[EnemyToSpawn]);
+            spawnedEnemies.Add(EnemyToSpawn, 1);
+        }
+    }
 
 }

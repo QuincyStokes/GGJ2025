@@ -15,7 +15,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Enemy enemyPrefab;
-    [SerializeField] private GridManager gridManager;
 
     //Internal Info for the Unit to keep track of
     private float lastAttackedTime = 0f;
@@ -38,6 +37,11 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject playerObject = GameObject.FindWithTag("Player");
+        if (playerObject != null)
+        {
+            playerTransform = playerObject.GetComponent<Transform>();
+        }
         transform.position = new Vector3(GridManager.Instance.roomSizeX / 5, GridManager.Instance.roomSizeY / 5, 0);
 
     }
@@ -96,6 +100,8 @@ public class Enemy : MonoBehaviour
         }
     }
 
+
+    // TO DO: Implement attacks for the enemy. Probably just spawn some effects
     void Attack()
     {
         if (Time.time - lastAttackedTime >= attackRate)

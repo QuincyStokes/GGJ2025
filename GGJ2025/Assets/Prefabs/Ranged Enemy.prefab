@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2201745918837925969, guid: 8104148560d86d942ba96977aa11e54b, type: 3}
       propertyPath: m_Name
-      value: Enemy Variant
+      value: Ranged Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 4133383444704692062, guid: 8104148560d86d942ba96977aa11e54b, type: 3}
       propertyPath: m_Mass
-      value: 100
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 4133383444704692062, guid: 8104148560d86d942ba96977aa11e54b, type: 3}
       propertyPath: m_BodyType
