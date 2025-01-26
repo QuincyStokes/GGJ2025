@@ -9,7 +9,9 @@ public class EnemySpawnManager : MonoBehaviour
     [SerializeField] int maxNumberOfUniqueSpawns = 3;
     [SerializeField] int minNumberOfSpawns = 1;
 
-    
+
+//  QUINCY ADDED THIS LINE BELOW
+    public static EnemySpawnManager Instance;
 
     //This is not complete at all
     public List<Enemy> enemyList;
@@ -28,6 +30,22 @@ public class EnemySpawnManager : MonoBehaviour
                 Debug.Log("Enemy spawned");
             }
         }
+        //QUINCY ADDING THIS LINE
+        spawnedEnemies = new Dictionary<int, int>();
+
+    }
+   //QUINCY ADDING AWAKE FUNCTION AND EVERYTHING INSIDE
+    void Awake()
+    {
+        
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Update is called once per frame
@@ -36,14 +54,15 @@ public class EnemySpawnManager : MonoBehaviour
         
     }
 
-    void SpawnEnemies()
+    public void SpawnEnemies()
     {
         int numberOfEnemiesToSpawn = Random.Range(minNumberOfSpawns, maxNumberOfUniqueSpawns);
         int numberOfEnemyTypes = enemyList.Count;
+        //int enemiesSpawned = 0; QUINCY TRIED HERE, and set while (enemiesSpawned <)
 
         while (spawnedEnemies.Count <= numberOfEnemiesToSpawn)              // assuming player has to clear the room of enemies
         {
-            int EnemyToSpawn = Random.Range(1, numberOfEnemyTypes);         //randomly chooses an enemy type to spawn
+            int EnemyToSpawn = Random.Range(0, numberOfEnemyTypes);         //randomly chooses an enemy type to spawn
 
             if (spawnedEnemies.ContainsKey(EnemyToSpawn))                   //Checks if our dict already has records of this enemy being spawned
             {
@@ -53,6 +72,7 @@ public class EnemySpawnManager : MonoBehaviour
                 {
                     Instantiate(enemyList[EnemyToSpawn]);
                     spawnedEnemies[EnemyToSpawn] += 1;                      // Adds to our count of enemies that have spawned
+                    //enemiesSpawned++; QUINCY TRIED HERE
                 }
             }
 
@@ -60,6 +80,7 @@ public class EnemySpawnManager : MonoBehaviour
             {
                 Instantiate(enemyList[EnemyToSpawn]);            //Adds the Key/Value pair to our dictionary after instantiating the enemy object.
                 spawnedEnemies.Add(EnemyToSpawn, 1);
+                //enemiesSpawned++; QUINCY TRIED HERE
             }
            
         }

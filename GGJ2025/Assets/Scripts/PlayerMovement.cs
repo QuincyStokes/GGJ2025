@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
         
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        Vector2 movement = new Vector3(horizontalInput, verticalInput).normalized;
+        Vector2 movement = new Vector3(horizontalInput, verticalInput);
 
         //Rigidbody approach
         //using add force uses acceleration, so will be sluggish movement

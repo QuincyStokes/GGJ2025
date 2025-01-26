@@ -174,7 +174,7 @@ public class GridManager : MonoBehaviour
             {
                 KillTile(startPosX+roomSizeX/2, startPosY, obstacleTM);
                 KillTile(startPosX+roomSizeX/2-1, startPosY, obstacleTM);
-                 KillTile(startPosX+roomSizeX/2, startPosY-1, obstacleTM);
+                KillTile(startPosX+roomSizeX/2, startPosY-1, obstacleTM);
                 KillTile(startPosX+roomSizeX/2-1, startPosY-1, obstacleTM);
             }
         }
@@ -195,6 +195,12 @@ public class GridManager : MonoBehaviour
         }
         rooms[roomX, roomY] = 1;
         
+
+        //spawn enemies in that room
+        if(roomX != 0 && roomY != 0)
+        {
+            //EnemySpawnManager.Instance.SpawnEnemies();
+        }
         
 
     }
