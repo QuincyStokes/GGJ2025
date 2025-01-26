@@ -60,7 +60,7 @@ public class Enemy : MonoBehaviour
         float randomX = Random.Range(roomX1, roomX2);
         float randomY = Random.Range(roomY1, roomY2);
 
-        transform.position = new Vector3(randomX, randomY, 0); // @@@@@@@@@ TO DO: Needs to be randomized, currently hard coded
+        transform.position = new Vector3(randomX, randomY, 0);
         currentHealth = maxHealth;
     
     }
@@ -68,7 +68,6 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
         Move();
     }
 
