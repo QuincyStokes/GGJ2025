@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Android;
 
 public class PlayerOxygen : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerOxygen : MonoBehaviour
     public float maxOxygen;
     private float currentOxygen;
     public float oxygenLossRate;
+    public bool paused;
 
 
     [Header("UI Elements")]
@@ -17,12 +19,20 @@ public class PlayerOxygen : MonoBehaviour
 
     void Update()
     {
-        ReduceOxygen(oxygenLossRate);
+        if(!paused)
+        {
+            ReduceOxygen(oxygenLossRate);
+        }
+        else
+        {
+
+        }
     }
 
     void Start()
     {
         currentOxygen = maxOxygen;
+        paused = false;
     }
 
 
@@ -58,5 +68,19 @@ public class PlayerOxygen : MonoBehaviour
         AudioManager.Instance.StopAllSounds();
         SceneManager.LoadScene("MenuScreen");
     }
+
+    public void PauseOxygen()
+    {
+        paused = true;
+        oxygenBar.enabled = false;
+    }
+
+    public void ResumeOxygen()
+    {
+        paused= false;
+        oxygenBar.enabled = true;
+    }
+
+
 
 }

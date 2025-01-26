@@ -13,12 +13,15 @@ public class PlayerAttack : MonoBehaviour
     private float currentCooldownTime;
     public List<AudioClip> attackBarks;
     public AudioMixerGroup SFXamg;
+    public PlayerOxygen playerOxygen;
+    public float oxygenShootAmount;
 
     // Start is called before the first frame update
 
     void Start()
     {
         currentCooldownTime = 0f;
+        playerOxygen = GetComponent<PlayerOxygen>();
     }
     void Update()
     {
@@ -37,6 +40,7 @@ public class PlayerAttack : MonoBehaviour
                 mousePos.z = 0f;
                 Vector3 fireDirection = (mousePos - transform.position).normalized;
                 newProjectile.GetComponent<Rigidbody2D>().velocity = fireDirection * fireSpeed;
+                playerOxygen.ReduceOxygen(oxygenShootAmount);
                 AudioManager.Instance.PlayOneShotVariedPitch(attackBarks[Random.Range(0, attackBarks.Count())], .3f, SFXamg, .05f);
 
             }

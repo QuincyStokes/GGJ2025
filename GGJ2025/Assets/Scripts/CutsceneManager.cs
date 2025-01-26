@@ -19,6 +19,7 @@ public class CutsceneManager : MonoBehaviour
     private bool inCutscene;
     public float cutsceneDuration;
     public List<Sprite> dayEndCutscenes;
+    public PlayerOxygen playerOxygen;
 
     public TMP_Text finText;
 
@@ -160,6 +161,7 @@ public class CutsceneManager : MonoBehaviour
         playerMovement.StopMovement();
         playerMovement.enabled = false;
         playerAttack.enabled = false;
+        playerOxygen.PauseOxygen();
         //here i think we would also use gridmanager to delete all current grids, then restart?
     }
 
@@ -169,6 +171,8 @@ public class CutsceneManager : MonoBehaviour
         OrbitManager.Instance.ResumeOrbit();
         playerMovement.enabled = true;
         playerAttack.enabled = true;
+        playerOxygen.ResumeOxygen();
+
     }
 
     private void GameDone()
