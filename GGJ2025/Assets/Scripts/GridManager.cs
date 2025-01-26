@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Linq;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
@@ -14,6 +16,8 @@ public class GridManager : MonoBehaviour
     public int outerTileThickness;
     public int maxRoomsX;
     public int maxRoomsY;
+    private bool isCameraMoving;
+    
 
 
 
@@ -31,11 +35,21 @@ public class GridManager : MonoBehaviour
     public Tile[] shipGroundTiles;
 
     [Header("Specific Tiles")]
-    public Tile portalTile;
     public Tile OUTERTile;
 
     [Header("Game Objects")]
     public GameObject door;
+
+    [Header("Obstacle Spawning")]
+    public float obstacleSpawnChancePerTile;
+    public GameObject[] obstacles;
+
+    [Header("Camera Settings")]
+    public float cameraMoveDuration;
+    [HideInInspector]public CinemachineVirtualCamera cam;
+    
+    [HideInInspector]public int currentCamX;
+    [HideInInspector]public int currentCamY;
 
 
     private int[,] rooms;
@@ -48,15 +62,13 @@ public class GridManager : MonoBehaviour
             for(int j = 0; j < maxRoomsY; j++)
             {
                 rooms[i, j] = 0;
-                print(rooms[i,j]);
             }
-            print("\n");
         }
 
     }
 
     
-    void Start()
+    void Awake()
     {
         if(Instance == null)
         {
@@ -66,60 +78,30 @@ public class GridManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        InitializeRoomsArray();
-        //GenerateStartRoom();
-        GenerateNewRoom(0, 0);
-        //GenerateNewRoom(0,1);
-        //GenerateNewRoom(1,1);
-        //GenerateNewRoom(2,0);
-    }   
-
-    
-
-    void GenerateStartRoom()
-    {
-        for(int i = 0 ; i < roomSizeX; i++)
-        {
-            for(int j = 0; j < roomSizeY; j++)
-            {
-                //place background tiles as a grid
-                
-                //if we're on a border, place a wall tile on the wall tilemap
-                // if(i < 0 || i > roomSizeX-1 || j < 0 || j > roomSizeY-1)
-                // {
-                //     PlaceTile(i, j, OUTERTile, backgroundTM);
-                // }
-                if(i == 0 || i == roomSizeX-1 || j == 0 || j == roomSizeY-1)
-                {
-                    PlaceTile(i, j, spaceWallTiles[Random.Range(0, spaceWallTiles.Count())], obstacleTM);
-                }
-                else
-                {
-                    PlaceTile(i, j, spaceGroundTiles[Random.Range(0, spaceGroundTiles.Count())], backgroundTM);
-                }
-            }
-        }
-        //can generate 4 doors in this room, always
-
-        //loop 4 times to create 4 doors
-        //door locations would be 
-        //0, y/2
-        //x/2, 0
-        //x, y/2
-        //x/2, y
-        
-        // PlaceDoor(0, roomSizeY/2);
-        // PlaceDoor(roomSizeX/2, 0);
-        // PlaceDoor(roomSizeX, roomSizeY/2);
-        // PlaceDoor(roomSizeX/2, roomSizeY);
-        // //rooms[0,0] = 1;
     }
 
-    public void GenerateNewRoom(int roomx, int roomy)
+    void Start()
     {
-        int startPosX = roomx*roomSizeX;
-        int startPosY = roomy*roomSizeY;
-        print("Creating new room at " + roomx + " " + roomy);
+        
+
+        if(cam == null)
+        {
+            cam = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
+        }
+        InitializeRoomsArray();
+        MoveCameraPos(0, 0);
+        GenerateNewRoom(0, 0);
+        DontDestroyOnLoad(this.gameObject);
+
+    }   
+
+
+    public void GenerateNewRoom(int roomX, int roomY)
+    {
+        int startPosX = roomX*roomSizeX;
+        int startPosY = roomY*roomSizeY;
+
+        //place wall and background tiles
         for(int i = startPosX ; i < startPosX+roomSizeX; i++)
         {
             for(int j = startPosY; j < startPosY+roomSizeY; j++)
@@ -133,15 +115,30 @@ public class GridManager : MonoBehaviour
                 }
                 else
                 {
+                    //place background (floor) tiles
                     PlaceTile(i, j, spaceGroundTiles[Random.Range(0, spaceGroundTiles.Count())], backgroundTM);
+
+                    //here is a good place to spawn in random gameobjects since we have the position stored
+                    //this just checks if we are away from the walls
+                    if(i > startPosX+2 && i < startPosX+roomSizeX-3 && j > startPosY+2 && j < startPosY+roomSizeY-3)
+                    {
+                        if(Random.Range(0, 100) < obstacleSpawnChancePerTile)
+                        {
+                            Instantiate(obstacles[Random.Range(0, obstacles.Count())], new Vector3(i, j, -1), Quaternion.identity);
+                        }
+                    }
+                    
                 }
             }
         }
-        if(roomx != 0 )
+
+        //placing doors
+        if(roomX > 0 )
         {
-            if(rooms[roomx-1,roomy] == 0) // LEFT
+            if(rooms[roomX-1,roomY] == 0) // LEFT
             {
-                PlaceDoor(startPosX, startPosY +roomSizeY/2, roomx-1, roomy);
+                Debug.Log($"placing LEFT door with NEXT room xy: {roomX-1}, {roomY}, and OLD room xy {roomX}, {roomY}");
+                PlaceDoor(startPosX, startPosY +roomSizeY/2, roomX-1, roomY, roomX, roomY);
             }
             else
             {
@@ -151,11 +148,12 @@ public class GridManager : MonoBehaviour
                 KillTile(startPosX-1, startPosY+roomSizeY/2-1, obstacleTM);
             }
         }
-        if(roomx != 10) //RIGHT
+        if(roomX < maxRoomsX-1) //RIGHT
         {
-            if(rooms[roomx+1, roomy] == 0) 
+            if(rooms[roomX+1, roomY] == 0) 
             {
-                PlaceDoor(startPosX + roomSizeX, startPosY +roomSizeY/2, roomx+1, roomy);
+                Debug.Log($"placing RIGHT door with NEXT room xy: {roomX+1}, {roomY}, and OLD room xy {roomX}, {roomY}");
+                PlaceDoor(startPosX + roomSizeX, startPosY +roomSizeY/2, roomX+1, roomY, roomX, roomY);
             }
             else
             {
@@ -165,11 +163,12 @@ public class GridManager : MonoBehaviour
                 KillTile(startPosX+roomSizeX, startPosY+roomSizeY/2-1, obstacleTM);
             }
         }
-        if(roomy != 0 ) //DOWN
+        if(roomY > 0 ) //DOWN
         {
-            if(rooms[roomx, roomy-1] == 0)
+            if(rooms[roomX, roomY-1] == 0)
             {
-                PlaceDoor(startPosX +roomSizeX/2, startPosY, roomx, roomy-1);
+                Debug.Log($"placing DOWN door with NEXT room xy: {roomX}, {roomY-1}, and OLD room xy {roomX}, {roomY}");
+                PlaceDoor(startPosX +roomSizeX/2, startPosY, roomX, roomY-1, roomX, roomY);
             }
             else
             {
@@ -179,28 +178,34 @@ public class GridManager : MonoBehaviour
                 KillTile(startPosX+roomSizeX/2-1, startPosY-1, obstacleTM);
             }
         }
-        if(roomy != 10)//UP
+        if(roomY < maxRoomsY-1)//UP
         {
-            if(rooms[roomx, roomy+1] == 0 ) 
+            if(rooms[roomX, roomY+1] == 0 ) 
             {
-                PlaceDoor(startPosX +roomSizeX/2, startPosY +roomSizeY, roomx, roomy+1);
+                Debug.Log($"placing UP door with NEXT room xy: {roomX}, {roomY+1}, and OLD room xy {roomX}, {roomY}");
+                PlaceDoor(startPosX +roomSizeX/2, startPosY +roomSizeY, roomX, roomY+1, roomX, roomY);
             }  
             else
             {
                 KillTile(startPosX+roomSizeX/2, startPosY +roomSizeY, obstacleTM);
                 KillTile(startPosX+roomSizeX/2-1, startPosY +roomSizeY, obstacleTM);
-                 KillTile(startPosX+roomSizeX/2, startPosY-1 +roomSizeY, obstacleTM);
+                KillTile(startPosX+roomSizeX/2, startPosY-1 +roomSizeY, obstacleTM);
                 KillTile(startPosX+roomSizeX/2-1, startPosY-1 +roomSizeY, obstacleTM);
             }
         }
-        rooms[roomx, roomy] = 1;
+        rooms[roomX, roomY] = 1;
         
+        
+
     }
-    public void PlaceDoor(int x, int y, int nextRoomX, int nextRoomY)
+    public void PlaceDoor(int x, int y, int nextRoomX, int nextRoomY, int oldRoomX, int oldRoomY)
     {
         GameObject newDoor = Instantiate(door, new Vector3(x, y, 0), Quaternion.identity);
-        newDoor.GetComponent<SpaceDoor>().x = nextRoomX;
-        newDoor.GetComponent<SpaceDoor>().y = nextRoomY;
+        SpaceDoor sd = newDoor.GetComponent<SpaceDoor>();
+        sd.newRoomX = nextRoomX;
+        sd.newRoomY = nextRoomY;
+        sd.oldRoomX = oldRoomX;
+        sd.oldRoomY = oldRoomY;
         KillTile(x, y, obstacleTM);
         KillTile(x-1, y, obstacleTM);
         KillTile(x, y-1, obstacleTM);
@@ -222,6 +227,43 @@ public class GridManager : MonoBehaviour
     public void PlaceGameObject(int x, int y, GameObject go)
     {
         Instantiate(go, new Vector3(x+.5f, y+.5f, 0), Quaternion.identity);
+    }
+
+
+    //MoveCameraPos sets the position of a camera to a Room X and Y
+    public void MoveCameraPos(int x, int y)
+    {
+        print("moving camera position to " + x + ", " +  y);
+        currentCamX = x;
+        currentCamY = y;
+        StartCoroutine(MoveCameraSmooth(x, y));
+        cam.transform.position = new Vector3(x*roomSizeX + roomSizeX/2, y*roomSizeY + roomSizeY/2, -10);
+    }
+
+    private IEnumerator MoveCameraSmooth(int x, int y)
+    {
+        isCameraMoving = true;
+        Vector3 startPos = cam.transform.position;
+        Vector3 endPos = new Vector3(x*roomSizeX + roomSizeX/2, y*roomSizeY + roomSizeY/2, -10);
+
+        float elapsedTime = 0f;
+        while(elapsedTime < cameraMoveDuration)
+        {
+            elapsedTime += Time.deltaTime;
+
+            //t is the percentage of the way to the new location, goes from 0-1
+            float t = Mathf.Clamp01(elapsedTime / cameraMoveDuration); 
+
+            //apply the position change using Lerp, makes it smooooth
+            cam.transform.position = Vector3.Lerp(startPos, endPos, t);
+            
+            //this basically tells the loop to wait to continue until the next frame
+            yield return null;
+        }
+
+        cam.transform.position = endPos;
+        isCameraMoving = false;
+
     }
 
 
