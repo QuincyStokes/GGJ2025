@@ -38,14 +38,14 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        transform.position = new Vector3(GridManager.Instance.roomSizeX / 5, GridManager.Instance.roomSizeY / 5, 0);
 
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        transform.position = new Vector3(GridManager.Instance.roomSizeX / 2, GridManager.Instance.roomSizeY / 2, 0);
+        Move();
     }
 
     void Spawn()
@@ -57,10 +57,10 @@ public class Enemy : MonoBehaviour
     {
         float distance = Vector3.Distance(transform.position, playerTransform.position);
         Vector3 direction = (transform.position - playerTransform.position).normalized;
+        var step = speed * Time.deltaTime;
 
         if ((enemyType & Options.Follow) == Options.Follow)
         {
-            var step = speed * Time.deltaTime;
             transform.position = Vector2.MoveTowards(transform.position, playerTransform.position, step);
         }
 
@@ -68,8 +68,15 @@ public class Enemy : MonoBehaviour
         {
             if (distance != unitPreferredDistance)
             {
-                rb.velocity = -direction * speed;
+                if (distance < unitPreferredDistance)
+                    rb.velocity = direction * speed;
+                else
+                    transform.position = Vector2.MoveTowards(transform.position, playerTransform.position, step);
+
             }
+
+                
+                
         }
 
         if ((enemyType & Options.Melee) == Options.Melee)
