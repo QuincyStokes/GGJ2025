@@ -199,7 +199,8 @@ public class GridManager : MonoBehaviour
         //spawn enemies in that room
         if(roomX != 0 && roomY != 0)
         {
-            //EnemySpawnManager.Instance.SpawnEnemies();
+            
+            EnemySpawnManager.Instance.SpawnEnemies();
         }
         
 

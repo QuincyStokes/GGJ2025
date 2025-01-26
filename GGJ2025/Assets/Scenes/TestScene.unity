@@ -654,6 +654,10 @@ PrefabInstance:
       propertyPath: enemyList.Array.data[1]
       value: 
       objectReference: {fileID: 7516659392114810538, guid: a29e730d8aae32e49bb99c16f10cb305, type: 3}
+    - target: {fileID: 2483520376261286850, guid: 3b25fb2e45c8eba4ea4fd89e9eb3c08e, type: 3}
+      propertyPath: maxNumberOfUniqueSpawns
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 2687061481262164657, guid: 3b25fb2e45c8eba4ea4fd89e9eb3c08e, type: 3}
       propertyPath: m_Name
       value: EnemySpawnManager
