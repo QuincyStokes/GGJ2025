@@ -15,8 +15,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject projectilePrefab; 
     [SerializeField] private float projectileSpeed;
 
-
- 
     //Component Info to keep track of
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Rigidbody2D rb;
@@ -26,6 +24,12 @@ public class Enemy : MonoBehaviour
     //Internal Info for the Unit to keep track of
     private float lastAttackedTime = 0f;
     private float currentHealth;
+
+    //Room info for the Unit to keep track of
+    private float roomX1;
+    private float roomX2;
+    private float roomY1;
+    private float roomY2;
 
     // Flags for Determining Enemy Movement Type / Attack Behavior
     [System.Flags]
@@ -50,7 +54,13 @@ public class Enemy : MonoBehaviour
         {
             playerTransform = playerObject.GetComponent<Transform>();
         }
-        transform.position = new Vector3(GridManager.Instance.roomSizeX / 5, GridManager.Instance.roomSizeY / 5, 0); // @@@@@@@@@ TO DO: Needs to be randomized, currently hard coded
+
+        UpdateXY();
+
+        float randomX = Random.Range(roomX1, roomX2);
+        float randomY = Random.Range(roomY1, roomY2);
+
+        transform.position = new Vector3(randomX, randomY, 0);
         currentHealth = maxHealth;
     
     }
@@ -59,11 +69,6 @@ public class Enemy : MonoBehaviour
     void FixedUpdate()
     {
         Move();
-    }
-
-    void Spawn()
-    {
-        
     }
 
     void Move()
@@ -105,6 +110,13 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    void UpdateXY()
+    {
+        roomX1 = GridManager.Instance.currentCamX * GridManager.Instance.roomSizeX;
+        roomX2 = GridManager.Instance.currentCamX * GridManager.Instance.roomSizeX + GridManager.Instance.roomSizeX;
+        roomY1 = GridManager.Instance.currentCamY * GridManager.Instance.roomSizeY;
+        roomY2 = GridManager.Instance.currentCamY * GridManager.Instance.roomSizeY + GridManager.Instance.roomSizeY;
+    }
 
     //@@@@@@@@ TO DO: Implement attacks for the enemy. Probably just spawn some effects
     void Attack()
