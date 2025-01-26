@@ -61,10 +61,7 @@ public class EnemySpawnManager : MonoBehaviour
                 Instantiate(enemyList[EnemyToSpawn]);            //Adds the Key/Value pair to our dictionary after instantiating the enemy object.
                 spawnedEnemies.Add(EnemyToSpawn, 1);
             }
-            
-
-            Instantiate(enemyList[EnemyToSpawn]);
-            spawnedEnemies.Add(EnemyToSpawn, 1);
+           
         }
     }
 
