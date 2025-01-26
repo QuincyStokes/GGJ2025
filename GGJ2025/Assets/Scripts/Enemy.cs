@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -10,7 +11,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float rangeDistance = 5.0f;                // How close the unit needs to be in order to attempt a ranged attack
     [SerializeField] private float unitPreferredDistance = 5.0f;        // How far the unit wants to stand in relation to the player.
     [SerializeField] private float attackRate = 1.0f;                   // How often the unit can attack per seconds
+    [SerializeField] private float maxHealth = 10;
+    [SerializeField] private GameObject projectilePrefab; 
 
+
+ 
     //Component Info to keep track of
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Rigidbody2D rb;
@@ -18,6 +23,7 @@ public class Enemy : MonoBehaviour
 
     //Internal Info for the Unit to keep track of
     private float lastAttackedTime = 0f;
+    private float currentHealth;
 
     // Flags for Determining Enemy Movement Type / Attack Behavior
     [System.Flags]
@@ -43,6 +49,7 @@ public class Enemy : MonoBehaviour
             playerTransform = playerObject.GetComponent<Transform>();
         }
         transform.position = new Vector3(GridManager.Instance.roomSizeX / 5, GridManager.Instance.roomSizeY / 5, 0); // @@@@@@@@@ TO DO: Needs to be randomized, currently hard coded
+        currentHealth = maxHealth;
 
     }
 
@@ -102,8 +109,23 @@ public class Enemy : MonoBehaviour
     {
         if (Time.time - lastAttackedTime >= attackRate)
         {
-            Debug.Log("Unit attempted to attack");
-            lastAttackedTime = Time.time;
+            //GameObject projectile = Instantiate()
         }
     }
+
+
+    public void TakeDamage(float amount)
+    {
+        currentHealth -= amount;
+        if(currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        Destroy(gameObject);
+    }
+
 }

@@ -45,5 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charsPerSecond: 0.05
-  dialogueUI: {fileID: 0}
-  dialogueSpeakerUI: {fileID: 0}
+  dialogueDatas:
+  - {fileID: 11400000, guid: d404b35bcd1cb74418ffb729c18d2d15, type: 2}
+  - {fileID: 11400000, guid: 5086b576386ac6740a3ed5233202ef67, type: 2}
+  - {fileID: 11400000, guid: be21df05853ef0541aaedca4e5a6b26d, type: 2}
+  - {fileID: 11400000, guid: f5560fc8e1e3d39438b2d48e48c1a198, type: 2}
+  dialogueDuration: 0.5
+  dialogueOneUI: {fileID: 0}
+  dialogueSpeakerOneUI: {fileID: 0}
+  dialogueTwoUI: {fileID: 0}
+  dialogueSpeakerTwoUI: {fileID: 0}

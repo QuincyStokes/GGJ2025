@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5057322498341562344}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -176,6 +176,7 @@ MonoBehaviour:
   rangeDistance: 5
   unitPreferredDistance: 5
   attackRate: 1
+  maxHealth: 10
   playerTransform: {fileID: 0}
   rb: {fileID: 4133383444704692062}
   enemyPrefab: {fileID: 5057322498341562344}

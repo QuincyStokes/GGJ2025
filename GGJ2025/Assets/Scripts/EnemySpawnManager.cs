@@ -58,9 +58,9 @@ public class EnemySpawnManager : MonoBehaviour
     {
         int numberOfEnemiesToSpawn = Random.Range(minNumberOfSpawns, maxNumberOfUniqueSpawns);
         int numberOfEnemyTypes = enemyList.Count;
-        //int enemiesSpawned = 0; QUINCY TRIED HERE, and set while (enemiesSpawned <)
+        int enemiesSpawned = 0; //QUINCY TRIED HERE, and set while (enemiesSpawned <)
 
-        while (spawnedEnemies.Count <= numberOfEnemiesToSpawn)              // assuming player has to clear the room of enemies
+        while (enemiesSpawned < numberOfEnemiesToSpawn)              // assuming player has to clear the room of enemies
         {
             int EnemyToSpawn = Random.Range(0, numberOfEnemyTypes);         //randomly chooses an enemy type to spawn
 
@@ -72,7 +72,7 @@ public class EnemySpawnManager : MonoBehaviour
                 {
                     Instantiate(enemyList[EnemyToSpawn]);
                     spawnedEnemies[EnemyToSpawn] += 1;                      // Adds to our count of enemies that have spawned
-                    //enemiesSpawned++; QUINCY TRIED HERE
+                    enemiesSpawned++; //QUINCY TRIED HERE
                 }
             }
 
@@ -80,7 +80,7 @@ public class EnemySpawnManager : MonoBehaviour
             {
                 Instantiate(enemyList[EnemyToSpawn]);            //Adds the Key/Value pair to our dictionary after instantiating the enemy object.
                 spawnedEnemies.Add(EnemyToSpawn, 1);
-                //enemiesSpawned++; QUINCY TRIED HERE
+                enemiesSpawned++; //QUINCY TRIED HERE
             }
            
         }

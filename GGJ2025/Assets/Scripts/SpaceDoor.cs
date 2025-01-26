@@ -26,7 +26,7 @@ public class SpaceDoor : MonoBehaviour
                 hasBeenOpened = true;
                 if(DialogueManager.Instance != null)
                 {
-                    DialogueManager.Instance.StartDialogue("Wow, a new room! So exciting!", "Dog");
+                    DialogueManager.Instance.StartDialogue("Wow, a new room! So exciting!");
                 }
             }
            

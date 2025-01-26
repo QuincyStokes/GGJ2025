@@ -50,6 +50,11 @@ public class PlayerMovement : MonoBehaviour
         //non rigidbody approach
         //transform.Translate(movement * moveSpeed);
     }
+
+    public void StopMovement()
+    {
+        rb.velocity = new Vector3(0, 0, 0);
+    }
 }
 
 

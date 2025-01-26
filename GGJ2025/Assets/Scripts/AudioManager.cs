@@ -87,7 +87,12 @@ public class AudioManager : MonoBehaviour
         source.PlayOneShot(clip);
     }
 
-
-    
-
+    public void StopAllSounds()
+    {
+        foreach(AudioSource source in sourcePool)
+        {
+            source.Stop();
+        }
+        jukeboxAudioSource.Stop();
+    }
 }

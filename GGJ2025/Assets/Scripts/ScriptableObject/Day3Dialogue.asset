@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf5a002e5a7dd3948a32a2b67b58d93d, type: 3}
+  m_Name: Day3Dialogue
+  m_EditorClassIdentifier: 
+  speakerIcon: {fileID: 21300000, guid: 9e487282435378f4981bfef5809aae11, type: 3}
+  speakerIconOther: {fileID: 21300000, guid: 2b61df4e23c02ab4ba695ba2adca466b, type: 3}
+  laikaDialogue:
+  - "\u201CHello, Miss Moon. You\u2019re so quiet tonight.\u201D"
+  - "\u201CI guess that\u2019s true. I like the quiet sometimes. It feels\u2026 safe.\u201D"
+  - "\u201CYeah\u2026 It\u2019s nice. I just wish it didn\u2019t feel so\u2026 big.\u201D"
+  - " \u201CUh-huh. Like it could swallow me up. Sometimes I bark at it, just to
+    see if it barks back. But it never does.\u201D"
+  - "\u201CReally? Do you think it hears me? All my barks and\u2026 and my howls?\u201D"
+  - "\u201CThat makes me happy. I just want to be heard. I want them to know that
+    I'm here! That I was here. I want them to remember my howl.\""
+  - "\u201COh... But you said they heard me?\u201D"
+  - '"Wait... I never told you my name!"'
+  - ' "The stars?"'
+  - "\u201CThen I think I\u2019ll howl. For them. For you. For me.\u201D"
+  otherDialogue:
+  - " \u201CHello, little one. Quiet doesn\u2019t mean I\u2019m not here.\u201D"
+  - "\u201CYes. The quiet has a way of keeping us company, doesn\u2019t it?\u201D"
+  - "\u201CThe quiet feels big?\u201D"
+  - "\u201CIt listens, though. The quiet always listens. Even if it doesn\u2019t
+    bark back.\u201D"
+  - "\u201CEvery single one. You\u2019re never unknown, little one.\u201D"
+  - " \u201CWell, little one, sound doesn't travel in space.\u201D"
+  - "\u201CI said they know you. A howl isn't just for being heard. It's for feeling
+    alive, for remembering who you are. When you remember who you are Laika, we feel
+    you a little stronger.\u201D"
+  - '"Oh little one, I''ve always known you. The stars whispered it to me."'
+  - ' "They''ve been watching you, Laika. They''ll always remember your name."'
+  - 

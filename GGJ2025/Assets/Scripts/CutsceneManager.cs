@@ -1,26 +1,46 @@
 
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CutsceneManager : MonoBehaviour
 {
+    public static CutsceneManager Instance;
     //this is an interesting one, essentially needs references to everything that updates constantly, and disable them?
     [Header("References")]
     public PlayerMovement playerMovement;
+    public PlayerAttack playerAttack;
     public Image cutsceneImage;
     public Image cutsceneBlackImage;
     public float fadeTime;
     public Sprite placeholderSprite;
     private bool inCutscene;
     public float cutsceneDuration;
+    public List<Sprite> dayEndCutscenes;
 
+    public TMP_Text finText;
+
+    void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     void Start()
     {
         inCutscene = false;
         cutsceneImage.enabled = false;
         cutsceneBlackImage.enabled = false;
-        EnterCutscene(placeholderSprite);
+        //EnterCutscene(placeholderSprite);
+        finText.enabled = false;
         
     }
     public void EnterCutscene(Sprite cutsceneSprite)
@@ -31,10 +51,18 @@ public class CutsceneManager : MonoBehaviour
             PauseGame();
             StartCoroutine(FadeInCutscene());
         }
-        
+    }
+    public void EnterCutscene(int cutsceneNumber)
+    {
+        if(!inCutscene)
+        {
+            cutsceneImage.sprite = dayEndCutscenes[cutsceneNumber];
+            PauseGame();
+            StartCoroutine(FadeInCutscene(cutsceneNumber));
+        }
     }
 
-    private IEnumerator FadeInCutscene()
+    private IEnumerator FadeInCutscene(int day=0)
     {   
         inCutscene = true;
         cutsceneImage.color = new Color(1f, 1f, 1f, 0);
@@ -50,26 +78,33 @@ public class CutsceneManager : MonoBehaviour
         }
         cutsceneImage.color = new Color(1f, 1f, 1f, 1f);
         print("starting cutscenefadeouttimer");
-        StartCoroutine(CutsceneFadeOutTimer());
+        StartCoroutine(CutsceneFadeOutTimer(day));
 
     }
 
 
-    private IEnumerator CutsceneFadeOutTimer()
+    private IEnumerator CutsceneFadeOutTimer(int day)
     {
-        yield return new WaitForSeconds(cutsceneDuration);
+        //DURING THIS TIME, DIALOGUE SHOULD PLAY
+        DialogueManager.Instance.BeginCutsceneDialogue(day);
+        //can we do a while loop here and just wait for isDialoguing to be false? this is yucky and dangerous i think...
+        while(DialogueManager.Instance.IsCutscening == true)
+        {
+            yield return null;
+        }
+        
         print("calling exitcutscene");
-        ExitCutscene();
+        ExitCutscene(day);
     }
 
-    public void ExitCutscene()
+    public void ExitCutscene(int day)
     {
         print("starting fadeoutcutscene");
-        StartCoroutine(FadeOutCutscene());
+        StartCoroutine(FadeOutCutscene(day));
         
     }
 
-    private IEnumerator FadeOutCutscene()
+    private IEnumerator FadeOutCutscene(int day)
     {
         //maybe we do a cool fade to black, then take it out?
         //first fade to black
@@ -91,10 +126,17 @@ public class CutsceneManager : MonoBehaviour
         cutsceneBlackImage.color = new Color(0f, 0f, 0f, 1f);
         //black is now fully faded in, disable the regular cutscene image
         cutsceneImage.enabled = false;
-
+        DialogueManager.Instance.ClearDialogue();
         //small delay before going back to game to let the emotions of reid's amazing writing sink in
         yield return new WaitForSeconds(1.5f);
         //now fade out the black image
+        //HERE WE CHECK IF WE SHOULD END THE GAME INSTEAD
+        if(day == 3)
+        {
+            GameDone();
+            //IF WERE HERE, WE HAVE JUST DISPLAYED THE FINAL CUTSCENE
+            yield break;
+        }
 
         elapsed = 0;
         while(elapsed <= fadeTime)
@@ -107,18 +149,39 @@ public class CutsceneManager : MonoBehaviour
         //its fully faded out, turn the black screen off, revealing the game again.
         cutsceneBlackImage.enabled = false;
         inCutscene = false;
+        ResumeGame();
     }
 
     private void PauseGame()
     {
         //everything we need to do to stop the game from functioning, do here
         OrbitManager.Instance.PauseOrbit();
+        DialogueManager.Instance.ClearDialogue();
+        playerMovement.StopMovement();
+        playerMovement.enabled = false;
+        playerAttack.enabled = false;
+        //here i think we would also use gridmanager to delete all current grids, then restart?
     }
 
     private void ResumeGame()
     {
         //literally just undo everything we did in pause
         OrbitManager.Instance.ResumeOrbit();
+        playerMovement.enabled = true;
+        playerAttack.enabled = true;
+    }
+
+    private void GameDone()
+    {
+        finText.enabled = true;
+        StartCoroutine(GameDoneCountdown());
+
+    }
+
+    private IEnumerator GameDoneCountdown()
+    {
+        yield return new WaitForSeconds(5f);
+        Application.Quit();
     }
 
 }

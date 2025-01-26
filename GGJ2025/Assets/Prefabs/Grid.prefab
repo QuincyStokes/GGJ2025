@@ -229,11 +229,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 70d4892121b3a4b4ca649851cf006a40, type: 2}
   shipWallTiles: []
   shipGroundTiles: []
-  portalTile: {fileID: 0}
   OUTERTile: {fileID: 11400000, guid: 8f9e3ebe4e4eaaf4fba36d7aa75af4b4, type: 2}
   door: {fileID: 4284382081384758002, guid: b7747007a68804744a102e32fb2d16df, type: 3}
-  cam: {fileID: 0}
+  obstacleSpawnChancePerTile: 2
+  obstacles:
+  - {fileID: 7751401076723288783, guid: 055196ed721b9d54180b5a2da463c2e0, type: 3}
   cameraMoveDuration: 0.2
+  cam: {fileID: 0}
   currentCamX: 0
   currentCamY: 0
 --- !u!1 &2621065263120901219

@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf5a002e5a7dd3948a32a2b67b58d93d, type: 3}
+  m_Name: Day4Dialogue
+  m_EditorClassIdentifier: 
+  speakerIcon: {fileID: 21300000, guid: 9e487282435378f4981bfef5809aae11, type: 3}
+  speakerIconOther: {fileID: 21300000, guid: 2b61df4e23c02ab4ba695ba2adca466b, type: 3}
+  laikaDialogue:
+  - "\u201C...Hello?\u201D"
+  - "Laika: \u201CI guess it\u2019s just me this time.\u201D"
+  - "\u201CThat\u2019s okay. I\u2019ve always been alone\u2026 haven\u2019t I?\u201D"
+  - "\u201CI didn\u2019t mind it before. I liked being useful. I liked being\u2026
+    good. A good dog.\u201D"
+  - "\u201CBut out here, it feels different. Bigger. Like\u2026 like I could disappear,
+    and no one would know.\u201D"
+  - "\u201CMaybe that\u2019s just what happens, though. Even stars burn up, don\u2019t
+    they? They burn so bright, and then\u2026\u201D"
+  - Laiks closes her eyes... There's a long pause. She opens them, closes them again
+    and howls... We hear a howl back, from the stars. It sounds like her.
+  otherDialogue:
+  - ...
+  - ...
+  - ...
+  - ...
+  - ...
+  - ...
+  - ...

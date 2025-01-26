@@ -65,7 +65,12 @@ public class OrbitManager : MonoBehaviour
         else
         {
             currentOrbitTime = 0;
+            //here signals the end of the day
+            //at the end of day 1, it will play cutscene[0], which is good i thnk
+            print("calling EnterCutscene with index " + (currentOrbitDay - 1));
+            CutsceneManager.Instance.EnterCutscene(currentOrbitDay-1);
             currentOrbitDay++;
+            
         }
     }
 
