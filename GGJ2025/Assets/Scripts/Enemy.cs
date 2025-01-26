@@ -13,11 +13,13 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float attackRate = 1.0f;                   // How often the unit can attack per seconds
     [SerializeField] private float maxHealth = 10;
     [SerializeField] private GameObject projectilePrefab; 
+    [SerializeField] private float projectileSpeed;
 
     //Component Info to keep track of
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Enemy enemyPrefab;
+    
 
     //Internal Info for the Unit to keep track of
     private float lastAttackedTime = 0f;
@@ -60,7 +62,7 @@ public class Enemy : MonoBehaviour
 
         transform.position = new Vector3(randomX, randomY, 0); // @@@@@@@@@ TO DO: Needs to be randomized, currently hard coded
         currentHealth = maxHealth;
-
+    
     }
 
     // Update is called once per frame
@@ -122,7 +124,11 @@ public class Enemy : MonoBehaviour
     {
         if (Time.time - lastAttackedTime >= attackRate)
         {
-            //GameObject projectile = Instantiate()
+            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            Vector3 playerPosition = playerTransform.position; 
+           
+            Vector3 fireDirection = (playerPosition - transform.position).normalized;
+            projectile.GetComponent<Rigidbody2D>().velocity = fireDirection * projectileSpeed;
         }
     }
 
