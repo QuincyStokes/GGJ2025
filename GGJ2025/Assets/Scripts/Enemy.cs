@@ -37,12 +37,12 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject playerObject = GameObject.FindWithTag("Player");
+        GameObject playerObject = GameObject.FindWithTag("Player");         // We need to keep track of the player in order to determine movement, so we use this to find out the player's positions before starting anything.
         if (playerObject != null)
         {
             playerTransform = playerObject.GetComponent<Transform>();
         }
-        transform.position = new Vector3(GridManager.Instance.roomSizeX / 5, GridManager.Instance.roomSizeY / 5, 0);
+        transform.position = new Vector3(GridManager.Instance.roomSizeX / 5, GridManager.Instance.roomSizeY / 5, 0); // @@@@@@@@@ TO DO: Needs to be randomized, currently hard coded
 
     }
 
@@ -63,12 +63,12 @@ public class Enemy : MonoBehaviour
         Vector3 direction = (transform.position - playerTransform.position).normalized;
         var step = speed * Time.deltaTime;
 
-        if ((enemyType & Options.Follow) == Options.Follow)
+        if ((enemyType & Options.Follow) == Options.Follow)                             // If the unit is a "Follow" type: it will always move towards the player's current position.
         {
             transform.position = Vector2.MoveTowards(transform.position, playerTransform.position, step);
         }
 
-        if ((enemyType & Options.Kite) == Options.Kite)
+        if ((enemyType & Options.Kite) == Options.Kite)                                 // If the unit is a "Kite" type: it will always try to stay in range of their attack range, but away from the player.
         {
             if (distance != unitPreferredDistance)
             {
@@ -76,14 +76,10 @@ public class Enemy : MonoBehaviour
                     rb.velocity = direction * speed;
                 else
                     transform.position = Vector2.MoveTowards(transform.position, playerTransform.position, step);
-
-            }
-
-                
-                
+            }     
         }
 
-        if ((enemyType & Options.Melee) == Options.Melee)
+        if ((enemyType & Options.Melee) == Options.Melee)                               // If the unit is a "Melee" type: they will only attempted to attack at close range
         {
             if (distance <= meleeDistance)
             {
@@ -91,7 +87,7 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        if ((enemyType & Options.Ranged) == Options.Ranged)
+        if ((enemyType & Options.Ranged) == Options.Ranged)                             // If the unit is a "Ranged" type: they will attempt to attack at minimum range
         {
             if (distance <= rangeDistance)
             {
@@ -101,7 +97,7 @@ public class Enemy : MonoBehaviour
     }
 
 
-    // TO DO: Implement attacks for the enemy. Probably just spawn some effects
+    //@@@@@@@@ TO DO: Implement attacks for the enemy. Probably just spawn some effects
     void Attack()
     {
         if (Time.time - lastAttackedTime >= attackRate)

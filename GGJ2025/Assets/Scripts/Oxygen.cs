@@ -9,7 +9,7 @@ public class Oxygen : MonoBehaviour
     [SerializeField] private float startingOxygen = 100;            // Player's default starting oxygen level
     [SerializeField] private float maxCapacity = 1000;              // Player's max oxygen capacity
     [SerializeField] private float attackRate = 1;                  // How often the player can attack in seconds
-    [SerializeField] private float oxygenUsage = 1;                 // How much oxygen each shot takes
+    [SerializeField] private float oxygenGunShotCost = 1;           // How much oxygen each shot takes
 
     private float lastAttackedTime = 0f;
 
@@ -25,7 +25,7 @@ public class Oxygen : MonoBehaviour
         
     }
 
-    void AddOxygen(float amount)
+    void AddOxygen(float amount)    // I like having helper functions being the ONLY way to add / remove to variables that change to keep them from being accessed by things they shouldn't. Allows us to keep them private as well.
     {
         currentOxygen += amount;
     }
@@ -35,11 +35,11 @@ public class Oxygen : MonoBehaviour
         currentOxygen -= amount;
     }
 
-
-    void Attack() // Not currently called by anything
+    void Attack() // Not currently called by anything, need input manager?
     {
         if (Time.time - lastAttackedTime >= attackRate)
         {
+            RemoveOxygen(oxygenGunShotCost);
             Debug.Log("Unit attempted to attack");
             lastAttackedTime = Time.time;
         }
