@@ -16,8 +16,6 @@ public class EnemySpawnManager : MonoBehaviour
     public List<Enemy> enemyList;
     public List<Enemy> spawnedEnemies;
 
-    //@@@@@@@@@@ TO DO: Update the dictionary whenever an enemy DIES. Currently, combat hasn't been implemented yet. Code will NOT work once units die.
-
     // Start is called before the first frame update
     void Start()
     {
