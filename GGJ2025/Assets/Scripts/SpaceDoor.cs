@@ -11,6 +11,7 @@ public class SpaceDoor : MonoBehaviour
     public SpriteRenderer image;
     public AudioClip doorOpen;
     public AudioMixerGroup SFXamg;
+    public Sprite laikaIcon;
     [HideInInspector]public int newRoomX; //x of the room that this door created
     [HideInInspector]public int newRoomY; //y of the room that this door created
 
@@ -30,7 +31,7 @@ public class SpaceDoor : MonoBehaviour
                 hasBeenOpened = true;
                 if(DialogueManager.Instance != null)
                 {
-                    DialogueManager.Instance.StartDialogue("Wow, a new room! So exciting!");
+                    DialogueManager.Instance.StartDialogue("Wow, a new room! So exciting!", laikaIcon, 2, 2, true );
                 }
             }
            

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Day3Dialogue
   m_EditorClassIdentifier: 
   speakerIcon: {fileID: 21300000, guid: e8e0b7a323ca6ba4f8e81e2ee2dc55b6, type: 3}
-  speakerIconOther: {fileID: 21300000, guid: 2b61df4e23c02ab4ba695ba2adca466b, type: 3}
+  speakerIconOther: {fileID: 21300000, guid: 690636d280a6edb44b25c8aa7118f82c, type: 3}
   laikaDialogue:
   - "\u201CHello, Miss Moon. You\u2019re so quiet tonight.\u201D"
   - "\u201CI guess that\u2019s true. I like the quiet sometimes. It feels\u2026 safe.\u201D"

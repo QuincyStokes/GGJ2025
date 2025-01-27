@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Day4Dialogue
   m_EditorClassIdentifier: 
   speakerIcon: {fileID: 21300000, guid: e8e0b7a323ca6ba4f8e81e2ee2dc55b6, type: 3}
-  speakerIconOther: {fileID: 21300000, guid: 2b61df4e23c02ab4ba695ba2adca466b, type: 3}
+  speakerIconOther: {fileID: 21300000, guid: e8e0b7a323ca6ba4f8e81e2ee2dc55b6, type: 3}
   laikaDialogue:
   - "\u201C...Hello?\u201D"
   - "Laika: \u201CI guess it\u2019s just me this time.\u201D"

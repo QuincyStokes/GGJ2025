@@ -60,6 +60,11 @@ public class CutsceneManager : MonoBehaviour
             cutsceneImage.sprite = dayEndCutscenes[cutsceneNumber];
             PauseGame();
             StartCoroutine(FadeInCutscene(cutsceneNumber));
+            if(cutsceneNumber == 3)
+            {
+                //this is laika by herself
+                //Jukebox.Instance.PlaySong(Jukebox.Instance.day4CutsceneSong);
+            }
         }
     }
 

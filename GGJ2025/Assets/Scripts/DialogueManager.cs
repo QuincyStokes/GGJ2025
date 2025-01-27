@@ -24,6 +24,9 @@ public class DialogueManager : MonoBehaviour
     public Image speakerImage;
     public Image textboxImage;
 
+    public TMP_Text dialogueSoloUI;
+    public Image dialogueSoloImageUI;
+
     //SECOND SPEAKER (will change)
     
 
@@ -66,11 +69,11 @@ public class DialogueManager : MonoBehaviour
     }
 
 
-    public void StartDialogue(string dialogue, Sprite speaker=null, float duration=2)
+    public void StartDialogue(string dialogue, Sprite speaker=null, float duration=2, int who=1, bool clearOnEnd = true)
     {
         if(!isDialogueDisplaying)
         {
-            StartCoroutine(DisplayDialogue(dialogue, speaker, duration));
+            StartCoroutine(DisplayDialogue(dialogue, speaker, duration, who, clearOnEnd));
         }
     }
 
@@ -85,36 +88,63 @@ public class DialogueManager : MonoBehaviour
     /// <returns>nothing, just wait</returns>
     private IEnumerator DisplayDialogue(string dialogue, Sprite speaker, float duration, int who=1, bool clearOnEnd=true)
     {   
-
+        
         //if laika is speaking, set the first textbox dialogue
-        
-        isDialogueDisplaying = true;
-
-        dialogueOneUI.enabled = true;
-        dialogueOneUI.text = "";
-
-        speakerImage.sprite = speaker;
-        speakerImage.enabled = true;
-        textboxImage.enabled = true;
-        //dialogueSpeakerOneUI.text = speaker; CHANGE TO IMAGE
-        
-        
-        foreach (char letter in dialogue)
+        if(who == 1)
         {
-            dialogueOneUI.text += letter;
-            yield return new WaitForSeconds(charsPerSecond);
-        }
-        yield return new WaitForSeconds(duration);
+            
 
-        if(clearOnEnd)
-        {
+            dialogueOneUI.enabled = true;
             dialogueOneUI.text = "";
-            dialogueOneUI.enabled= false;
 
-            speakerImage.enabled = false;
-            speakerImage.sprite = null;
-            textboxImage.enabled = false;
+            speakerImage.sprite = speaker;
+            speakerImage.enabled = true;
+            textboxImage.enabled = true;
+            //dialogueSpeakerOneUI.text = speaker; CHANGE TO IMAGE
+            
+            
+            foreach (char letter in dialogue)
+            {
+                dialogueOneUI.text += letter;
+                yield return new WaitForSeconds(charsPerSecond);
+            }
+            yield return new WaitForSeconds(duration);
+
+            if(clearOnEnd)
+            {
+                dialogueOneUI.text = "";
+                dialogueOneUI.enabled= false;
+
+                speakerImage.enabled = false;
+                speakerImage.sprite = null;
+                textboxImage.enabled = false;
+            }
         }
+        else
+        {
+            isDialogueDisplaying = true;
+            dialogueSoloUI.text = "";
+            dialogueSoloUI.enabled = true;
+            dialogueSoloImageUI.sprite =speaker;
+            dialogueSoloImageUI.enabled = true;
+
+            foreach (char letter in dialogue)
+            {
+                dialogueSoloUI.text += letter;
+                yield return new WaitForSeconds(charsPerSecond);
+            }
+            yield return new WaitForSeconds(duration);
+
+            if(clearOnEnd)
+            {
+                dialogueSoloUI.text = "";
+                dialogueSoloUI.enabled= false;
+
+                dialogueSoloImageUI.enabled = false;
+                dialogueSoloImageUI.sprite = null;
+            }
+        }
+       
            
 
         // isDialogueDisplaying = false;

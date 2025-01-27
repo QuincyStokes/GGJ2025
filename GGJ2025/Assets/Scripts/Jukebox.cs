@@ -10,7 +10,7 @@ public class Jukebox : MonoBehaviour
     [Header("Background Music")]
     public List<AudioClip> backgroundMusic;
     public AudioMixerGroup amg;
-
+    public AudioClip day4CutsceneSong;
     private bool musicPlaying;
     private bool manualPause;
     private AudioClip currentSong;
@@ -55,6 +55,15 @@ public class Jukebox : MonoBehaviour
        
     }
 
+    public void PlaySong(AudioClip clip)
+    {
+        //fade out current song and play new one
+        AudioManager.Instance.StopAllSounds();
+        musicPlaying = true;
+        AudioManager.Instance.PlayOneShot(clip, 1f, amg, AudioManager.Instance.jukeboxAudioSource);
+        
+    }
+
     private IEnumerator SongCooldown()
     {
         musicPlaying = true;
@@ -73,6 +82,7 @@ public class Jukebox : MonoBehaviour
     public void ResumeMusic()
     {
         manualPause = false;
+        musicPlaying = false;
     }
 
 }
