@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf5a002e5a7dd3948a32a2b67b58d93d, type: 3}
   m_Name: Day1Dialogue
   m_EditorClassIdentifier: 
-  speakerIcon: {fileID: 21300000, guid: 9e487282435378f4981bfef5809aae11, type: 3}
+  speakerIcon: {fileID: 21300000, guid: 5c66e69d34613794c8f498864eec1869, type: 3}
   speakerIconOther: {fileID: 21300000, guid: f0719cce95a556a4c889cff60d348708, type: 3}
   laikaDialogue:
   - "\u201COh wow, you\u2019re briiiight! Are you my new friend?\u201D"

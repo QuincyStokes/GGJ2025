@@ -101,6 +101,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oxygenAmount: 30
+  bubblePops:
+  - {fileID: 8300000, guid: ffa670c59b62387449a5692d476aad06, type: 3}
+  - {fileID: 8300000, guid: 003c4eb27b0859f488394717b4f832e3, type: 3}
+  - {fileID: 8300000, guid: ba455a45355b0ad4eb886596a89b9152, type: 3}
+  SFXamg: {fileID: -5081952722072493740, guid: b22f0e776a0fd204db2c409da0dfd359, type: 2}
 --- !u!58 &8970485697357944648
 CircleCollider2D:
   m_ObjectHideFlags: 0

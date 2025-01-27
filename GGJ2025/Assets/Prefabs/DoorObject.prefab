@@ -131,6 +131,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 6203806403794850325}
+  doorOpen: {fileID: 8300000, guid: 12cadfba898942b42bfc60a5c854eda4, type: 3}
+  SFXamg: {fileID: -5081952722072493740, guid: b22f0e776a0fd204db2c409da0dfd359, type: 2}
   newRoomX: 0
   newRoomY: 0
   oldRoomX: 0

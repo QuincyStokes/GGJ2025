@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class SpaceDoor : MonoBehaviour
@@ -8,12 +9,15 @@ public class SpaceDoor : MonoBehaviour
 
     [Header("Image Component")]
     public SpriteRenderer image;
+    public AudioClip doorOpen;
+    public AudioMixerGroup SFXamg;
     [HideInInspector]public int newRoomX; //x of the room that this door created
     [HideInInspector]public int newRoomY; //y of the room that this door created
 
     [HideInInspector]public int oldRoomX; //x of the room that was already there
     [HideInInspector]public int oldRoomY; //y of the room that aas already there
     private bool hasBeenOpened = false;
+
     
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -44,7 +48,7 @@ public class SpaceDoor : MonoBehaviour
             {
                 GridManager.Instance.MoveCameraPos(oldRoomX, oldRoomY);
             }
-
+            AudioManager.Instance.PlayOneShotVariedPitch(doorOpen, .3f, SFXamg, .05f );
         }
     }
 

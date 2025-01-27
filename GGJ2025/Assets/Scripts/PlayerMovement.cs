@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
 
     private int currentRoomX;
     private int currentRoomY;
+    public AudioClip bumpedIntoSomething;
+    public AudioMixerGroup SFXamg;
 
     
 
@@ -54,6 +57,14 @@ public class PlayerMovement : MonoBehaviour
     public void StopMovement()
     {
         rb.velocity = new Vector3(0, 0, 0);
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if(!other.gameObject.CompareTag("Enemy"))
+        {
+            AudioManager.Instance.PlayOneShotVariedPitch(bumpedIntoSomething, .3f, SFXamg, .05f);
+        }
     }
 }
 

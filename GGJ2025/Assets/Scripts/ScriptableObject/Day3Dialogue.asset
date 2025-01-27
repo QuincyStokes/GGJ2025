@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf5a002e5a7dd3948a32a2b67b58d93d, type: 3}
   m_Name: Day3Dialogue
   m_EditorClassIdentifier: 
-  speakerIcon: {fileID: 21300000, guid: 9e487282435378f4981bfef5809aae11, type: 3}
+  speakerIcon: {fileID: 21300000, guid: e8e0b7a323ca6ba4f8e81e2ee2dc55b6, type: 3}
   speakerIconOther: {fileID: 21300000, guid: 2b61df4e23c02ab4ba695ba2adca466b, type: 3}
   laikaDialogue:
   - "\u201CHello, Miss Moon. You\u2019re so quiet tonight.\u201D"
