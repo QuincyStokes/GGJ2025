@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Day2Dialogue
   m_EditorClassIdentifier: 
   speakerIcon: {fileID: 21300000, guid: 9e487282435378f4981bfef5809aae11, type: 3}
-  speakerIconOther: {fileID: 21300000, guid: 2b61df4e23c02ab4ba695ba2adca466b, type: 3}
+  speakerIconOther: {fileID: 21300000, guid: 4356fe63ce697ae48874dd3d58550c22, type: 3}
   laikaDialogue:
   - "\u201COh! Hi there! Are you lost too?\u201D"
   - "\u201CWhoa, I didn\u2019t understand a word of that! Do you\u2026 speak dog?\u201D"
