@@ -477,6 +477,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 24b3f776faf5ca244879463fb69f323a, type: 3}
   - {fileID: 8300000, guid: bc0016c0280ea444699f59bb788dc1e6, type: 3}
   SFXamg: {fileID: -5081952722072493740, guid: b22f0e776a0fd204db2c409da0dfd359, type: 2}
+  playerOxygen: {fileID: 0}
+  oxygenShootAmount: 0
 --- !u!114 &651064101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,6 +506,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxOxygen: 100
   oxygenLossRate: 0.01
+  paused: 0
   oxygenBar: {fileID: 102223585}
 --- !u!224 &1074902877 stripped
 RectTransform:
@@ -578,17 +581,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1412344259 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4939606592229476492, guid: 7ad9d6db4983b8d48b67174dd8933a3c, type: 3}
-  m_PrefabInstance: {fileID: 5063040723044594989}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1479044718 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3549428472852410298, guid: 7ad9d6db4983b8d48b67174dd8933a3c, type: 3}
@@ -797,11 +789,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1921392438 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2832840200645705977, guid: 7ad9d6db4983b8d48b67174dd8933a3c, type: 3}
-  m_PrefabInstance: {fileID: 5063040723044594989}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2103898351
 GameObject:
   m_ObjectHideFlags: 0
@@ -1403,11 +1390,11 @@ PrefabInstance:
     - target: {fileID: 8831097644146657000, guid: b4cf58254aa330c4097e0d7007e0e4d7, type: 3}
       propertyPath: clockHand
       value: 
-      objectReference: {fileID: 1921392438}
+      objectReference: {fileID: 0}
     - target: {fileID: 8831097644146657000, guid: b4cf58254aa330c4097e0d7007e0e4d7, type: 3}
       propertyPath: dayCounter
       value: 
-      objectReference: {fileID: 1412344259}
+      objectReference: {fileID: 0}
     - target: {fileID: 8831097644146657000, guid: b4cf58254aa330c4097e0d7007e0e4d7, type: 3}
       propertyPath: orbitLength
       value: 60

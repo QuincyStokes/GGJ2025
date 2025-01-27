@@ -118,7 +118,13 @@ public class Enemy : MonoBehaviour
         roomY2 = GridManager.Instance.currentCamY * GridManager.Instance.roomSizeY + GridManager.Instance.roomSizeY -1;
     }
 
-    //@@@@@@@@ TO DO: Implement attacks for the enemy. Probably just spawn some effects
+    void ResetPosition()
+    {
+        float randomX = Random.Range(roomX1, roomX2);
+        float randomY = Random.Range(roomY1, roomY2);
+        transform.position = new Vector3(randomX, randomY, 0);
+    }
+
     void Attack()
     {
         if (Time.time - lastAttackedTime >= attackRate)
