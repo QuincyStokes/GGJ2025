@@ -107,7 +107,15 @@ public class CutsceneManager : MonoBehaviour
     {
         print("starting fadeoutcutscene");
         StartCoroutine(FadeOutCutscene(day));
-        
+
+        //empties the SpawnManager list of enemies and recreates new ones. 
+        foreach (Enemy e in EnemySpawnManager.Instance.spawnedEnemies)
+        {
+            Destroy(e);
+            EnemySpawnManager.Instance.spawnedEnemies.Remove(e);
+        }
+
+        EnemySpawnManager.Instance.SpawnEnemies();
     }
 
     private IEnumerator FadeOutCutscene(int day)

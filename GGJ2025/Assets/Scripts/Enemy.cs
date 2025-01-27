@@ -112,13 +112,19 @@ public class Enemy : MonoBehaviour
 
     void UpdateXY()
     {
-        roomX1 = GridManager.Instance.currentCamX * GridManager.Instance.roomSizeX;
-        roomX2 = GridManager.Instance.currentCamX * GridManager.Instance.roomSizeX + GridManager.Instance.roomSizeX;
-        roomY1 = GridManager.Instance.currentCamY * GridManager.Instance.roomSizeY;
-        roomY2 = GridManager.Instance.currentCamY * GridManager.Instance.roomSizeY + GridManager.Instance.roomSizeY;
+        roomX1 = GridManager.Instance.currentCamX * GridManager.Instance.roomSizeX + 1;
+        roomX2 = GridManager.Instance.currentCamX * GridManager.Instance.roomSizeX + GridManager.Instance.roomSizeX -1;
+        roomY1 = GridManager.Instance.currentCamY * GridManager.Instance.roomSizeY + 1;
+        roomY2 = GridManager.Instance.currentCamY * GridManager.Instance.roomSizeY + GridManager.Instance.roomSizeY -1;
     }
 
-    //@@@@@@@@ TO DO: Implement attacks for the enemy. Probably just spawn some effects
+    void ResetPosition()
+    {
+        float randomX = Random.Range(roomX1, roomX2);
+        float randomY = Random.Range(roomY1, roomY2);
+        transform.position = new Vector3(randomX, randomY, 0);
+    }
+
     void Attack()
     {
         if (Time.time - lastAttackedTime >= attackRate)
@@ -143,6 +149,7 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
+        EnemySpawnManager.Instance.spawnedEnemies.Remove(this);
         Destroy(gameObject);
     }
 
