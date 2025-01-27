@@ -66,7 +66,7 @@ public class PlayerOxygen : MonoBehaviour
     {
         //we need to return to main menu
         AudioManager.Instance.StopAllSounds();
-        SceneManager.LoadScene("DeathScreen");
+        SceneManager.LoadScene("DeathScene");
         //SceneManager.LoadScene("MenuScreen");
     }
 

@@ -108,7 +108,7 @@ public class DialogueManager : MonoBehaviour
                 dialogueOneUI.text += letter;
                 yield return new WaitForSeconds(charsPerSecond);
             }
-            yield return new WaitForSeconds(duration);
+            yield return new WaitForSeconds(duration+(duration*.2f));
 
             if(clearOnEnd)
             {
@@ -133,7 +133,7 @@ public class DialogueManager : MonoBehaviour
                 dialogueSoloUI.text += letter;
                 yield return new WaitForSeconds(charsPerSecond);
             }
-            yield return new WaitForSeconds(duration);
+            yield return new WaitForSeconds(duration + duration*2f);
 
             if(clearOnEnd)
             {
@@ -218,7 +218,7 @@ public class DialogueManager : MonoBehaviour
             //...now do it again for other person?
             if(dialogueDatas[day].otherDialogue[i] != null)
             {
-                StartCoroutine(DisplayDialogue(dialogueDatas[day].otherDialogue[i], dialogueDatas[day].speakerIconOther, dialogueDuration, 2, false));
+                StartCoroutine(DisplayDialogue(dialogueDatas[day].otherDialogue[i], dialogueDatas[day].speakerIconOther, dialogueDuration, 1, false));
             
                 yield return new WaitForSeconds(dialogueDatas[day].otherDialogue[i].Length * charsPerSecond + dialogueDuration);
             //winning hopefully?

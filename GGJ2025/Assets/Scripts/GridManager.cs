@@ -91,7 +91,7 @@ public class GridManager : MonoBehaviour
         InitializeRoomsArray();
         MoveCameraPos(0, 0);
         GenerateNewRoom(0, 0);
-        DontDestroyOnLoad(this.gameObject);
+        //DontDestroyOnLoad(this.gameObject);
 
     }   
 

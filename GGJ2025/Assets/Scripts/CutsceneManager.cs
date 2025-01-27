@@ -109,10 +109,16 @@ public class CutsceneManager : MonoBehaviour
         StartCoroutine(FadeOutCutscene(day));
 
         //empties the SpawnManager list of enemies and recreates new ones. 
-        foreach (Enemy e in EnemySpawnManager.Instance.spawnedEnemies)
-        {
-            Destroy(e);
-            EnemySpawnManager.Instance.spawnedEnemies.Remove(e);
+        // foreach (Enemy e in EnemySpawnManager.Instance.spawnedEnemies)
+        // {
+        //     EnemySpawnManager.Instance.spawnedEnemies.Remove(e);
+        //     Destroy(e.gameObject);
+            
+        // }
+        for (int i = 0; i < EnemySpawnManager.Instance.spawnedEnemies.Count; i++){
+            Enemy e = EnemySpawnManager.Instance.spawnedEnemies[0];
+            Destroy(e.gameObject);
+            EnemySpawnManager.Instance.spawnedEnemies.RemoveAt(0);
         }
 
         EnemySpawnManager.Instance.SpawnEnemies();

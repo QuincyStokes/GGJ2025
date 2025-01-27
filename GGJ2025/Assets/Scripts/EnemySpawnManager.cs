@@ -52,8 +52,8 @@ public class EnemySpawnManager : MonoBehaviour
         {
             int EnemyToSpawn = Random.Range(0, numberOfEnemyTypes - 1);         //randomly chooses an enemy type to spawn
             Enemy e = enemyList[EnemyToSpawn];  
-            Instantiate(e);
-            spawnedEnemies.Add(e);
+            Enemy f = Instantiate(e);
+            spawnedEnemies.Add(f);
             enemiesSpawned++; //QUINCY TRIED HERE          
         }
     }

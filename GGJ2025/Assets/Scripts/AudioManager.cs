@@ -93,6 +93,6 @@ public class AudioManager : MonoBehaviour
         {
             source.Stop();
         }
-        jukeboxAudioSource.Stop();
+        //jukeboxAudioSource.Stop();
     }
 }
