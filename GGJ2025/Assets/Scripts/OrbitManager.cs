@@ -18,6 +18,7 @@ public class OrbitManager : MonoBehaviour
     public TMP_Text dayCounter;
     public TMP_Text orbitDayText;
     public TMP_Text orbitTimeText;
+    public AudioClip gameplayMusic;
     
 
     private bool paused;
@@ -42,6 +43,7 @@ public class OrbitManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        Jukebox.Instance.FadeInMusic(gameplayMusic, 2f);
     }
 
     void Update()
@@ -96,6 +98,8 @@ public class OrbitManager : MonoBehaviour
         public void ResumeOrbit()
         {
             paused = false;
+            // call new music here?
+            //ukebox.Instance.CrossfadeIn(gameplayMusic);
         }
     
 

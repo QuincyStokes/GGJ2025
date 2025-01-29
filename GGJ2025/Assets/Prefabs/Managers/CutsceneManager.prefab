@@ -52,8 +52,14 @@ MonoBehaviour:
   placeholderSprite: {fileID: 21300000, guid: 981bf1e4574885e44ab3000e8199904f, type: 3}
   cutsceneDuration: 5
   dayEndCutscenes:
-  - {fileID: 21300000, guid: 981bf1e4574885e44ab3000e8199904f, type: 3}
-  - {fileID: 21300000, guid: 9e487282435378f4981bfef5809aae11, type: 3}
-  - {fileID: 21300000, guid: 9e487282435378f4981bfef5809aae11, type: 3}
-  - {fileID: 21300000, guid: 2b61df4e23c02ab4ba695ba2adca466b, type: 3}
+  - {fileID: 21300000, guid: 50c6f54065bcf46439fc15ddc44803a0, type: 3}
+  - {fileID: 21300000, guid: 043eadeb6abf3a347ae0c1fd46160b19, type: 3}
+  - {fileID: 21300000, guid: 72b318c5466e0b849b56e1a7f1dbe0d6, type: 3}
+  - {fileID: 21300000, guid: e137332fe1e41474ea30a1105cccbe48, type: 3}
+  playerOxygen: {fileID: 0}
   finText: {fileID: 0}
+  cutsceneSongs:
+  - {fileID: 8300000, guid: a7539babf2082ff4c9e14a372dbbd7f1, type: 3}
+  - {fileID: 8300000, guid: a7539babf2082ff4c9e14a372dbbd7f1, type: 3}
+  - {fileID: 8300000, guid: a7539babf2082ff4c9e14a372dbbd7f1, type: 3}
+  - {fileID: 8300000, guid: a7539babf2082ff4c9e14a372dbbd7f1, type: 3}

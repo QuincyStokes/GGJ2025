@@ -234,6 +234,8 @@ MonoBehaviour:
   obstacleSpawnChancePerTile: 2
   obstacles:
   - {fileID: 7751401076723288783, guid: 055196ed721b9d54180b5a2da463c2e0, type: 3}
+  - {fileID: 3018763316836329919, guid: bd0d27c3c30faf5469a4741681a1d80f, type: 3}
+  - {fileID: 7751401076723288783, guid: 055196ed721b9d54180b5a2da463c2e0, type: 3}
   cameraMoveDuration: 0.2
   cam: {fileID: 0}
   currentCamX: 0

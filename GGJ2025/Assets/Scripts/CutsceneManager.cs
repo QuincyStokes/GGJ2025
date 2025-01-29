@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +23,7 @@ public class CutsceneManager : MonoBehaviour
     public PlayerOxygen playerOxygen;
 
     public TMP_Text finText;
+    public List<AudioClip> cutsceneSongs;
 
     void Awake()
     {
@@ -44,15 +46,7 @@ public class CutsceneManager : MonoBehaviour
         finText.enabled = false;
         
     }
-    public void EnterCutscene(Sprite cutsceneSprite)
-    {
-        if(!inCutscene)
-        {
-            cutsceneImage.sprite = cutsceneSprite;
-            PauseGame();
-            StartCoroutine(FadeInCutscene());
-        }
-    }
+   
     public void EnterCutscene(int cutsceneNumber)
     {
         if(!inCutscene)
@@ -60,11 +54,7 @@ public class CutsceneManager : MonoBehaviour
             cutsceneImage.sprite = dayEndCutscenes[cutsceneNumber];
             PauseGame();
             StartCoroutine(FadeInCutscene(cutsceneNumber));
-            if(cutsceneNumber == 3)
-            {
-                //this is laika by herself
-                //Jukebox.Instance.PlaySong(Jukebox.Instance.day4CutsceneSong);
-            }
+            
         }
     }
 
@@ -75,6 +65,7 @@ public class CutsceneManager : MonoBehaviour
         cutsceneImage.enabled = true;
 
         float elapsed = 0f;
+        Jukebox.Instance.FadeOutMusic(fadeTime);
         while(elapsed <= fadeTime)
         {
             elapsed += Time.deltaTime;
@@ -82,6 +73,7 @@ public class CutsceneManager : MonoBehaviour
             cutsceneImage.color = new Color(1f, 1f, 1f, t);
             yield return null;
         }
+        Jukebox.Instance.FadeInMusic(cutsceneSongs[day], fadeTime/2);
         cutsceneImage.color = new Color(1f, 1f, 1f, 1f);
         print("starting cutscenefadeouttimer");
         StartCoroutine(CutsceneFadeOutTimer(day));
@@ -136,6 +128,11 @@ public class CutsceneManager : MonoBehaviour
         //fade in the black screen, which is on top of the cutscene iamge
         //turn off the cutscene image
         //fade out the black iamge
+        if(day != 3)
+        {
+            Jukebox.Instance.FadeOutMusic(fadeTime);
+        }
+        
         while(elapsed <= fadeTime)
         {
             elapsed += Time.deltaTime;
@@ -151,25 +148,31 @@ public class CutsceneManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         //now fade out the black image
         //HERE WE CHECK IF WE SHOULD END THE GAME INSTEAD
+        Debug.Log($"DAY CHECK | {day} ");
         if(day == 3)
         {
             GameDone();
             //IF WERE HERE, WE HAVE JUST DISPLAYED THE FINAL CUTSCENE
             yield break;
         }
-
-        elapsed = 0;
-        while(elapsed <= fadeTime)
+        else
         {
-            elapsed += Time.deltaTime;
-            float t = elapsed / fadeTime; //this is percentage done
-            cutsceneBlackImage.color = new Color(0f, 0f, 0f, 1-t);
-            yield return null;
-        } 
-        //its fully faded out, turn the black screen off, revealing the game again.
-        cutsceneBlackImage.enabled = false;
-        inCutscene = false;
-        ResumeGame();
+            Jukebox.Instance.FadeInMusic(OrbitManager.Instance.gameplayMusic, fadeTime);
+            elapsed = 0;
+            while(elapsed <= fadeTime)
+            {
+                elapsed += Time.deltaTime;
+                float t = elapsed / fadeTime; //this is percentage done
+                cutsceneBlackImage.color = new Color(0f, 0f, 0f, 1-t);
+                yield return null;
+            } 
+            //its fully faded out, turn the black screen off, revealing the game again.
+            cutsceneBlackImage.enabled = false;
+            inCutscene = false;
+            ResumeGame();
+        }
+        
+        
     }
 
     private void PauseGame()

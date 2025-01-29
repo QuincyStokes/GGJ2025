@@ -9,20 +9,29 @@ public class Jukebox : MonoBehaviour
     public static Jukebox Instance;
     [Header("Background Music")]
     public List<AudioClip> backgroundMusic;
+    public AudioSource jukeboxOne;
+    public AudioSource jukeboxTwo;
+    public AudioSource currentJukebox;
     public AudioMixerGroup amg;
     public AudioClip day4CutsceneSong;
     private bool musicPlaying;
     private bool manualPause;
     private AudioClip currentSong;
 
-    void Update()
+    void Awake()
     {
-        if(musicPlaying == false && manualPause == false)
+        if(Instance == null)
         {
-            PlayMusic();
+            Instance =  this;
+            currentJukebox = jukeboxOne;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
- 
+  
     void PlayMusic()
     {
         if(backgroundMusic.Count == 0)
@@ -31,7 +40,7 @@ public class Jukebox : MonoBehaviour
             return;
         }
         else if (backgroundMusic.Count == 1) {
-            AudioManager.Instance.PlayOneShot(backgroundMusic[0], 1f, amg, AudioManager.Instance.jukeboxAudioSource);
+            AudioManager.Instance.PlayOneShot(backgroundMusic[0], 1f, amg, currentJukebox);
             currentSong = backgroundMusic[0];
             StartCoroutine(SongCooldown());
         }
@@ -47,7 +56,7 @@ public class Jukebox : MonoBehaviour
             }
             else //we got a new song! play it.
             {
-                AudioManager.Instance.PlayOneShot(newSong, 1f, amg, AudioManager.Instance.jukeboxAudioSource);
+                AudioManager.Instance.PlayOneShot(newSong, 1f, amg, currentJukebox);
                 currentSong = newSong;
                 StartCoroutine(SongCooldown());
             }
@@ -60,7 +69,7 @@ public class Jukebox : MonoBehaviour
         //fade out current song and play new one
         AudioManager.Instance.StopAllSounds();
         musicPlaying = true;
-        AudioManager.Instance.PlayOneShot(clip, 1f, amg, AudioManager.Instance.jukeboxAudioSource);
+        AudioManager.Instance.PlayOneShot(clip, 1f, amg, currentJukebox);
         
     }
 
@@ -72,10 +81,17 @@ public class Jukebox : MonoBehaviour
 
     }
 
-    public void StopMusic()
+    public void FadeOutMusic(float time)
     {
-        AudioManager.Instance.jukeboxAudioSource.Stop();
-        manualPause = true;
+        StartCoroutine(AudioManager.Instance.FadeOutMusic(currentJukebox, time));
+
+    }
+
+    public void FadeInMusic(AudioClip clip, float time)
+    {
+        StartCoroutine(AudioManager.Instance.FadeInMusic(clip, currentJukebox, time ));
+        currentSong = clip;
+        StartCoroutine(SongCooldown());
     }
 
 
@@ -84,5 +100,20 @@ public class Jukebox : MonoBehaviour
         manualPause = false;
         musicPlaying = false;
     }
+
+    public void CrossfadeIn(AudioClip clip)
+    {
+        if(currentJukebox = jukeboxOne)
+        {
+            StartCoroutine(AudioManager.Instance.CrossfadeInNewMusic(clip, jukeboxOne, jukeboxTwo, 3f));
+            currentJukebox = jukeboxTwo;
+        }
+        else
+        {
+            StartCoroutine(AudioManager.Instance.CrossfadeInNewMusic(clip, jukeboxTwo, jukeboxOne, 3f));
+            currentJukebox = jukeboxOne;
+        }
+    }
+
 
 }

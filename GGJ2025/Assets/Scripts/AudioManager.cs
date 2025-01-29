@@ -1,6 +1,8 @@
 
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -12,8 +14,7 @@ public class AudioManager : MonoBehaviour
     public AudioMixer masterMixer;
     
     private List<AudioSource> sourcePool;
-    //making a specific jukebox audio source so it can be paused/stopped
-    public AudioSource jukeboxAudioSource;
+
     public int poolSize;
 
 
@@ -94,5 +95,60 @@ public class AudioManager : MonoBehaviour
             source.Stop();
         }
         //jukeboxAudioSource.Stop();
+    }
+
+    public IEnumerator FadeOutMusic(AudioSource source, float time)
+    {
+        float elapsed = 0f;
+        while(elapsed <= time)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / time;
+            source.volume = 1-t;
+            yield return null;
+        }
+        source.volume = 0;
+    }
+
+    public IEnumerator FadeInMusic(AudioClip clip, AudioSource source, float time)
+    {
+        source.volume = 0f;
+        source.clip = clip;
+        float elapsed = 0f;
+        source.Play();
+        while (elapsed <= time)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / time;
+
+            source.volume = t;
+            yield return null;
+        }
+        source.volume = 1;
+    }  
+
+
+     public IEnumerator CrossfadeInNewMusic(AudioClip clip, AudioSource jukeboxCurr, AudioSource jukeboxNew, float transitionTime )
+    {
+        //reduce volume of old song and raise volume of new song at the same time, this means we need two audio sources though
+        float elapsed = 0f;
+        jukeboxNew.clip = clip;
+        jukeboxNew.volume = 0f;
+        jukeboxNew.Play();
+        while(elapsed <= transitionTime)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / transitionTime; // current transition progress as a percentage
+
+            //jukeboxCurr needs to go down
+            //jukeboxNew needs to go up
+
+            jukeboxCurr.volume = 1-t;
+            jukeboxNew.volume = t;
+            //isnt that kinda it?
+            yield return null;
+        }
+        //jukebox can handle 
+        jukeboxCurr.Stop();
     }
 }

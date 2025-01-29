@@ -9,7 +9,7 @@ public class OxygenBubble : MonoBehaviour
     public float oxygenAmount;
     public List<AudioClip> bubblePops;
     public AudioMixerGroup SFXamg;
-    void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
         if(other.gameObject.CompareTag("Player"))
         {

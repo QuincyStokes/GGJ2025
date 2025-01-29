@@ -44,5 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61b7ad8a5dd7250489d7b711a1565967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxNumberOfSpawns: 5
+  minNumberOfSpawns: 1
   enemyList:
-  - {fileID: 0}
+  - {fileID: 5057322498341562344, guid: 8104148560d86d942ba96977aa11e54b, type: 3}
+  - {fileID: 7516659392114810538, guid: a29e730d8aae32e49bb99c16f10cb305, type: 3}
+  spawnedEnemies: []

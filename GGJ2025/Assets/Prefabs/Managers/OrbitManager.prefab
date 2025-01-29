@@ -44,9 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fb478ac8bc56f344b80170af3786d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orbitLength: 10
+  orbitLength: 3
   clockHand: {fileID: 0}
   dayCounter: {fileID: 0}
   orbitDayText: {fileID: 0}
   orbitTimeText: {fileID: 0}
+  gameplayMusic: {fileID: 8300000, guid: f45573249f3ebf14cb8bec1b642a7af0, type: 3}
   currentOrbitDay: 0
