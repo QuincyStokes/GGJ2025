@@ -38,7 +38,7 @@ public class MainMenuController : MonoBehaviour
 
         playButtonText.enabled = false; //turn off text of button
         quitButtonText.enabled = false;
-
+        videoPlayer.url = System.IO.Path.Combine(Application.streamingAssetsPath, "Spaceshiplaunch.mp4");
         videoPlayer.enabled = true; //this will play it automatically
         Jukebox.Instance.PlaySong(rocketlaunchAudio);
         //videoPlayer.loopPointReached += OnVideoEnd;
