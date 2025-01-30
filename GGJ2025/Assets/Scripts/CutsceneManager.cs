@@ -64,6 +64,12 @@ public class CutsceneManager : MonoBehaviour
         cutsceneImage.color = new Color(1f, 1f, 1f, 0);
         cutsceneImage.enabled = true;
 
+        for (int i = 0; i < EnemySpawnManager.Instance.spawnedEnemies.Count; i++){
+            Enemy e = EnemySpawnManager.Instance.spawnedEnemies[0];
+            Destroy(e.gameObject);
+            EnemySpawnManager.Instance.spawnedEnemies.RemoveAt(0);
+        }
+
         float elapsed = 0f;
         Jukebox.Instance.FadeOutMusic(fadeTime);
         while(elapsed <= fadeTime)
@@ -107,13 +113,7 @@ public class CutsceneManager : MonoBehaviour
         //     Destroy(e.gameObject);
             
         // }
-        for (int i = 0; i < EnemySpawnManager.Instance.spawnedEnemies.Count; i++){
-            Enemy e = EnemySpawnManager.Instance.spawnedEnemies[0];
-            Destroy(e.gameObject);
-            EnemySpawnManager.Instance.spawnedEnemies.RemoveAt(0);
-        }
-
-        EnemySpawnManager.Instance.SpawnEnemies();
+        
     }
 
     private IEnumerator FadeOutCutscene(int day)
@@ -158,8 +158,16 @@ public class CutsceneManager : MonoBehaviour
         else
         {
             Jukebox.Instance.FadeInMusic(OrbitManager.Instance.gameplayMusic, fadeTime);
+
+            
+
+            EnemySpawnManager.Instance.SpawnEnemies();
+
+            ResumeGame();
+
+
             elapsed = 0;
-            while(elapsed <= fadeTime)
+            while(elapsed <= fadeTime/2)
             {
                 elapsed += Time.deltaTime;
                 float t = elapsed / fadeTime; //this is percentage done
@@ -169,7 +177,8 @@ public class CutsceneManager : MonoBehaviour
             //its fully faded out, turn the black screen off, revealing the game again.
             cutsceneBlackImage.enabled = false;
             inCutscene = false;
-            ResumeGame();
+
+            
         }
         
         

@@ -79,6 +79,16 @@ public class Enemy : MonoBehaviour
 
         if ((enemyType & Options.Follow) == Options.Follow)                             // If the unit is a "Follow" type: it will always move towards the player's current position.
         {
+            //if this enemy is to the left of the player, it should face right
+            if(transform.position.x < playerTransform.position.x)
+            {
+                transform.localScale = new Vector3(-10, 10, 10);
+            }
+            else
+            {
+                transform.localScale = new Vector3(10, 10, 10);
+            }
+
             transform.position = Vector2.MoveTowards(transform.position, playerTransform.position, step);
         }
 

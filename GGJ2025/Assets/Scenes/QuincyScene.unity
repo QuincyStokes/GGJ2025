@@ -1153,6 +1153,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 468432100}
     - target: {fileID: 8831097644146657000, guid: b4cf58254aa330c4097e0d7007e0e4d7, type: 3}
+      propertyPath: orbitLength
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831097644146657000, guid: b4cf58254aa330c4097e0d7007e0e4d7, type: 3}
       propertyPath: orbitDayText
       value: 
       objectReference: {fileID: 1593741181}

@@ -46,7 +46,7 @@ public class EnemySpawnManager : MonoBehaviour
         int numberOfEnemiesToSpawn = Random.Range(minNumberOfSpawns, maxNumberOfSpawns);
         Debug.Log("Number of Enemies to Spawn:" + numberOfEnemiesToSpawn);
         int numberOfEnemyTypes = enemyList.Count;
-        int enemiesSpawned = 0; //QUINCY TRIED HERE, and set while (enemiesSpawned <)
+        int enemiesSpawned = 0; 
 
         while (enemiesSpawned < numberOfEnemiesToSpawn)              // assuming player has to clear the room of enemies
         {

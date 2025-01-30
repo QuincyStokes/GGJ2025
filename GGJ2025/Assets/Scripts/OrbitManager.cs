@@ -43,7 +43,12 @@ public class OrbitManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        Jukebox.Instance.FadeInMusic(gameplayMusic, 2f);
+        if(Jukebox.Instance)
+        {
+            Jukebox.Instance.FadeInMusic(gameplayMusic, 2f);
+        }
+
+        
     }
 
     void Update()
