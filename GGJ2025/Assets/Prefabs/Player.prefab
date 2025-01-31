@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 9139767908072933360}
   - component: {fileID: 8775815329136281784}
   - component: {fileID: 7085431793807312208}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -178,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4924963794581685948}
   - component: {fileID: 1365198006191398449}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlayerObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}

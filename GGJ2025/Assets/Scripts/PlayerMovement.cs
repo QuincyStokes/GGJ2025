@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("References")]
     public Rigidbody2D rb;
+    public Transform playerSprite;
     
 
     [Header("Movement Settings")]
@@ -40,6 +41,14 @@ public class PlayerMovement : MonoBehaviour
         
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
+        if(horizontalInput < 0)
+        {
+            playerSprite.localScale = new Vector3(-10, 10, 1);
+        }
+        else
+        {
+            playerSprite.localScale = new Vector3(10, 10, 1);
+        }
         Vector2 movement = new Vector3(horizontalInput, verticalInput);
 
         //Rigidbody approach

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -11,13 +12,13 @@ public class SpaceDoor : MonoBehaviour
     public SpriteRenderer image;
     public AudioClip doorOpen;
     public AudioMixerGroup SFXamg;
-    public Sprite laikaIcon;
     [HideInInspector]public int newRoomX; //x of the room that this door created
     [HideInInspector]public int newRoomY; //y of the room that this door created
 
     [HideInInspector]public int oldRoomX; //x of the room that was already there
     [HideInInspector]public int oldRoomY; //y of the room that aas already there
     private bool hasBeenOpened = false;
+    public List<string> newRoomQuotes;
 
     
     void OnTriggerEnter2D(Collider2D other)
@@ -29,10 +30,6 @@ public class SpaceDoor : MonoBehaviour
             {
                 GridManager.Instance.GenerateNewRoom(newRoomX, newRoomY);
                 hasBeenOpened = true;
-                if(DialogueManager.Instance != null)
-                {
-                    DialogueManager.Instance.StartDialogue("Wow, a new room! So exciting!", laikaIcon, 2, 2, true );
-                }
             }
            
             //in the future, this would trigger some animation

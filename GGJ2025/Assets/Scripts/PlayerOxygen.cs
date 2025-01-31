@@ -16,7 +16,10 @@ public class PlayerOxygen : MonoBehaviour
 
     [Header("UI Elements")]
     public Image oxygenBar;
+    public Sprite laikaIcon;
 
+    [Header("Hurt Dialogue")]
+    public List<string> hurtDialogue;
     void Update()
     {
         if(!paused)
@@ -36,10 +39,14 @@ public class PlayerOxygen : MonoBehaviour
     }
 
 
-    public void ReduceOxygen(float amount)
+    public void ReduceOxygen(float amount, bool quote=false)
     {
         currentOxygen -= amount;
         UpdateOxygenBar();
+        if(quote==true && Random.Range(0, 2) == 1)
+        {
+            DialogueManager.Instance.StartDialogue(hurtDialogue[Random.Range(0, hurtDialogue.Count)], laikaIcon, 2, 2, true );
+        }
         if(currentOxygen <= 0)
         {
             //player is dead

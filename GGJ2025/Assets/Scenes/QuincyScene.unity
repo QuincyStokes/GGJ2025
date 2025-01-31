@@ -711,6 +711,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1942620994 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4924963794581685948, guid: eb21162e8a8727848a67cbb266893b77, type: 3}
+  m_PrefabInstance: {fileID: 8508777174463701241}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1432362509647196188
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1177,14 +1182,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3208946267611235458, guid: eb21162e8a8727848a67cbb266893b77, type: 3}
+      propertyPath: playerSprite
+      value: 
+      objectReference: {fileID: 1942620994}
     - target: {fileID: 5199726688364012121, guid: eb21162e8a8727848a67cbb266893b77, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7085431793807312208, guid: eb21162e8a8727848a67cbb266893b77, type: 3}
+      propertyPath: laikaIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: e8e0b7a323ca6ba4f8e81e2ee2dc55b6, type: 3}
+    - target: {fileID: 7085431793807312208, guid: eb21162e8a8727848a67cbb266893b77, type: 3}
       propertyPath: oxygenBar
       value: 
       objectReference: {fileID: 102223585}
+    - target: {fileID: 7085431793807312208, guid: eb21162e8a8727848a67cbb266893b77, type: 3}
+      propertyPath: hurtDialogue.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7085431793807312208, guid: eb21162e8a8727848a67cbb266893b77, type: 3}
+      propertyPath: hurtDialogue.Array.data[0]
+      value: Ow... I'm okay. I'm okay.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7085431793807312208, guid: eb21162e8a8727848a67cbb266893b77, type: 3}
+      propertyPath: hurtDialogue.Array.data[1]
+      value: I have to keep moving...
+      objectReference: {fileID: 0}
+    - target: {fileID: 7085431793807312208, guid: eb21162e8a8727848a67cbb266893b77, type: 3}
+      propertyPath: hurtDialogue.Array.data[2]
+      value: It's fine. Just keep going, Laika.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7085431793807312208, guid: eb21162e8a8727848a67cbb266893b77, type: 3}
+      propertyPath: hurtDialogue.Array.data[3]
+      value: Not yet... I can still move.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7085431793807312208, guid: eb21162e8a8727848a67cbb266893b77, type: 3}
+      propertyPath: hurtDialogue.Array.data[4]
+      value: Just a scratch, I won't let this stop me.
+      objectReference: {fileID: 0}
     - target: {fileID: 8231158543399423491, guid: eb21162e8a8727848a67cbb266893b77, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1241,6 +1278,34 @@ PrefabInstance:
     - target: {fileID: 2363885230533397161, guid: e34f934500db2f349b43b705e9ca9150, type: 3}
       propertyPath: m_Name
       value: Grid
+      objectReference: {fileID: 0}
+    - target: {fileID: 7161787669063917192, guid: e34f934500db2f349b43b705e9ca9150, type: 3}
+      propertyPath: laikaIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: 5c66e69d34613794c8f498864eec1869, type: 3}
+    - target: {fileID: 7161787669063917192, guid: e34f934500db2f349b43b705e9ca9150, type: 3}
+      propertyPath: newRoomQuotes.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7161787669063917192, guid: e34f934500db2f349b43b705e9ca9150, type: 3}
+      propertyPath: newRoomQuotes.Array.data[0]
+      value: What's waiting for me this time?
+      objectReference: {fileID: 0}
+    - target: {fileID: 7161787669063917192, guid: e34f934500db2f349b43b705e9ca9150, type: 3}
+      propertyPath: newRoomQuotes.Array.data[1]
+      value: Another step closer... to what, though?
+      objectReference: {fileID: 0}
+    - target: {fileID: 7161787669063917192, guid: e34f934500db2f349b43b705e9ca9150, type: 3}
+      propertyPath: newRoomQuotes.Array.data[2]
+      value: A new place... but it all feels the same.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7161787669063917192, guid: e34f934500db2f349b43b705e9ca9150, type: 3}
+      propertyPath: newRoomQuotes.Array.data[3]
+      value: Every room feels heavier than the last...
+      objectReference: {fileID: 0}
+    - target: {fileID: 7161787669063917192, guid: e34f934500db2f349b43b705e9ca9150, type: 3}
+      propertyPath: newRoomQuotes.Array.data[4]
+      value: Every room feels heavier than the last...
       objectReference: {fileID: 0}
     - target: {fileID: 7454842203950546401, guid: e34f934500db2f349b43b705e9ca9150, type: 3}
       propertyPath: m_LocalPosition.x

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Cinemachine;
 using UnityEngine;
@@ -18,9 +19,6 @@ public class GridManager : MonoBehaviour
     public int maxRoomsY;
     private bool isCameraMoving;
     
-
-
-
     [Header("Tilemap References")]
     public Tilemap backgroundTM;
     public Tilemap obstacleTM;
@@ -50,6 +48,10 @@ public class GridManager : MonoBehaviour
     
     [HideInInspector]public int currentCamX;
     [HideInInspector]public int currentCamY;
+
+    [Header("Dialogue")]
+    public List<string> newRoomQuotes;
+    public Sprite laikaIcon;
 
 
     private int[,] rooms;
@@ -201,6 +203,14 @@ public class GridManager : MonoBehaviour
         {
             EnemySpawnManager.Instance.SpawnEnemies();
         }
+
+        //50% chance to play dialogue
+        if(Random.Range(0,2) == 1)
+        {
+            DialogueManager.Instance.StartDialogue(newRoomQuotes[Random.Range(0, newRoomQuotes.Count)], laikaIcon, 2, 2, true );
+        }
+        
+        
         
 
     }

@@ -50,7 +50,7 @@ public class EnemySpawnManager : MonoBehaviour
 
         while (enemiesSpawned < numberOfEnemiesToSpawn)              // assuming player has to clear the room of enemies
         {
-            int EnemyToSpawn = Random.Range(0, numberOfEnemyTypes - 1);         //randomly chooses an enemy type to spawn
+            int EnemyToSpawn = Random.Range(0, numberOfEnemyTypes);         //randomly chooses an enemy type to spawn
             Enemy e = enemyList[EnemyToSpawn];  
             Enemy f = Instantiate(e);
             spawnedEnemies.Add(f);

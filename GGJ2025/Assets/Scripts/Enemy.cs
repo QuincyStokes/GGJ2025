@@ -144,6 +144,7 @@ public class Enemy : MonoBehaviour
            
             Vector3 fireDirection = (playerPosition - transform.position).normalized;
             projectile.GetComponent<Rigidbody2D>().velocity = fireDirection * projectileSpeed;
+            lastAttackedTime = Time.time;
         }
     }
 

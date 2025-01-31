@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: enemyPrefab
       value: 
       objectReference: {fileID: 5057322498341562344, guid: 8104148560d86d942ba96977aa11e54b, type: 3}
+    - target: {fileID: 5057322498341562344, guid: 8104148560d86d942ba96977aa11e54b, type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 1175502122654794626, guid: ced7e9e5897c0e84b9123537a055957b, type: 3}
     - target: {fileID: 6286767403699123982, guid: 8104148560d86d942ba96977aa11e54b, type: 3}
       propertyPath: m_Size.x
       value: 0.18235022

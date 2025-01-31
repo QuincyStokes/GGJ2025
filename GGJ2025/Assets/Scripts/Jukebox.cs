@@ -22,7 +22,7 @@ public class Jukebox : MonoBehaviour
     {
         if(Instance == null)
         {
-            Instance =  this;
+            Instance = this;
             currentJukebox = jukeboxOne;
             DontDestroyOnLoad(gameObject);
         }

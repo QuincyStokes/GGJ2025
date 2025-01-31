@@ -143,6 +143,7 @@ public class DialogueManager : MonoBehaviour
                 dialogueSoloImageUI.enabled = false;
                 dialogueSoloImageUI.sprite = null;
             }
+            isDialogueDisplaying = false;
         }
        
            
