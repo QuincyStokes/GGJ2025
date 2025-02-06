@@ -851,10 +851,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 422561278}
     - target: {fileID: 2938645464369573206, guid: 8871cdd82735c314ea3cc77d4e381b8c, type: 3}
-      propertyPath: dialogueTwoUI
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2938645464369573206, guid: 8871cdd82735c314ea3cc77d4e381b8c, type: 3}
       propertyPath: dialogueSoloUI
       value: 
       objectReference: {fileID: 1091065430}
@@ -862,14 +858,6 @@ PrefabInstance:
       propertyPath: dialogueSoloImageUI
       value: 
       objectReference: {fileID: 250842437}
-    - target: {fileID: 2938645464369573206, guid: 8871cdd82735c314ea3cc77d4e381b8c, type: 3}
-      propertyPath: dialogueSpeakerOneUI
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2938645464369573206, guid: 8871cdd82735c314ea3cc77d4e381b8c, type: 3}
-      propertyPath: dialogueSpeakerTwoUI
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 7755662523960286504, guid: 8871cdd82735c314ea3cc77d4e381b8c, type: 3}
       propertyPath: m_Name
       value: DialogueManager

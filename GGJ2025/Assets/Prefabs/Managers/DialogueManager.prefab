@@ -50,8 +50,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5086b576386ac6740a3ed5233202ef67, type: 2}
   - {fileID: 11400000, guid: be21df05853ef0541aaedca4e5a6b26d, type: 2}
   - {fileID: 11400000, guid: f5560fc8e1e3d39438b2d48e48c1a198, type: 2}
-  dialogueDuration: 0.5
+  dialogueDuration: 2
   dialogueOneUI: {fileID: 0}
-  dialogueSpeakerOneUI: {fileID: 0}
-  dialogueTwoUI: {fileID: 0}
-  dialogueSpeakerTwoUI: {fileID: 0}
+  speakerImage: {fileID: 0}
+  textboxImage: {fileID: 0}
+  dialogueSoloUI: {fileID: 0}
+  dialogueSoloImageUI: {fileID: 0}

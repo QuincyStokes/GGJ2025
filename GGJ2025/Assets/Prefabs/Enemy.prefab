@@ -173,12 +173,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  meleeDistance: 1
+  meleeDistance: 2
   rangeDistance: 5
   unitPreferredDistance: 5
   attackRate: 1
   maxHealth: 10
-  projectilePrefab: {fileID: 1175502122654794626, guid: 0eb2cc172d5fb6142a2e464c411f3259, type: 3}
+  projectilePrefab: {fileID: 1175502122654794626, guid: ced7e9e5897c0e84b9123537a055957b, type: 3}
   projectileSpeed: 3
   playerTransform: {fileID: 0}
   rb: {fileID: 4133383444704692062}

@@ -149,7 +149,7 @@ public class CutsceneManager : MonoBehaviour
         //now fade out the black image
         //HERE WE CHECK IF WE SHOULD END THE GAME INSTEAD
         Debug.Log($"DAY CHECK | {day} ");
-        if(day == 3)
+        if(day >= 3)
         {
             GameDone();
             //IF WERE HERE, WE HAVE JUST DISPLAYED THE FINAL CUTSCENE
